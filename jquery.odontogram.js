@@ -1886,8 +1886,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
                 newGeom = new FRM_ACR(geometry.vertices, geometry.options);
                 break;
             case 'BRIDGE':
-                console.log("BRIDGE", geometry);
-                // newGeom = new BRIDGE(geometry.vertices, geometry.options);
+                newGeom = new BRIDGE(geometry.startVert, geometry.endVert, geometry.options);
                 break;
             case 'ARROW_TOP_LEFT':
                 newGeom = new ARROW_TOP_LEFT(geometry.vertices, geometry.options);
