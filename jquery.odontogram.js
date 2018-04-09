@@ -17,6 +17,17 @@ var ODONTOGRAM_MODE_POC = 13; // Porcelain crown pada gigi vital (poc)
 var ODONTOGRAM_MODE_RRX = 14; // Sisa Akar (rrx)
 var ODONTOGRAM_MODE_MIS = 15; // Gigi hilang (mis)
 var ODONTOGRAM_MODE_IPX = 16; // Implant + Porcelain crown (ipx - poc)
+var ODONTOGRAM_MODE_FRM_ACR = 17; // Partial Denture/ Full Denture
+var ODONTOGRAM_MODE_BRIDGE = 18; // BRIDGE
+var ODONTOGRAM_MODE_ARROW_TOP_LEFT = 19; // TOP-LEFT ARROW
+var ODONTOGRAM_MODE_ARROW_TOP_RIGHT = 20; // TOP-RIGHT ARROW
+var ODONTOGRAM_MODE_ARROW_TOP_TURN_LEFT = 21; // TOP-TURN-LEFT ARROW
+var ODONTOGRAM_MODE_ARROW_TOP_TURN_RIGHT = 22; // TOP-TURN-RIGHT ARROW
+var ODONTOGRAM_MODE_ARROW_BOTTOM_LEFT = 23; // BOTTOM-LEFT ARROW
+var ODONTOGRAM_MODE_ARROW_BOTTOM_RIGHT = 24; // BOTTOM-RIGHT ARROW
+var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_LEFT = 25; // BOTTOM-TURN-LEFT ARROW
+var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
+
 
 
 // Create closure.
@@ -502,6 +513,89 @@ var ODONTOGRAM_MODE_IPX = 16; // Implant + Porcelain crown (ipx - poc)
         ctx.textAlign = "left";
         ctx.fillText('   IPX', x, y);
     }
+    // Class FRM_ACR = Partial Denture/ Full Denture
+    function FRM_ACR(vertices, options) {
+        this.name = 'FRM_ACR';
+        this.vertices = vertices;
+        this.options = $.extend({ fillStyle: '#555', fontsize: 12 }, options);
+        return this;
+    }
+    FRM_ACR.prototype.render = function(ctx) {
+        var x = parseFloat(this.vertices[0].x) + (parseFloat(this.vertices[1].x) - parseFloat(this.vertices[0].x)) / 2;
+        var y = parseFloat(this.vertices[1].y) + (parseFloat(this.vertices[1].x) - parseFloat(this.vertices[0].x)) / 2 - (parseFloat(this.vertices[1].x) - parseFloat(this.vertices[0].x)) / 8;
+        var fontsize = parseInt(this.options.fontsize);
+
+        ctx.fillStyle = '#000';
+        ctx.font = "bold " + fontsize + "px Algerian";
+        ctx.textBaseline = "top";
+        ctx.textAlign = "center";
+        ctx.fillText('   PRD/FLD', x, y);
+    }
+    // Class Bridge = BRIDGE
+    function BRIDGE(startVert, endVert, options) {
+        this.name = 'BRIDGE';
+        this.startVert = startVert;
+        this.endVert = endVert;
+        this.options = $.extend({ strokeStyle: '#555' }, options);
+        return this;
+    }
+    BRIDGE.prototype.render = function(ctx) {
+        var vert0, vert1;
+        if (this.startVert) {
+            vert0 = {
+                x1: parseFloat(this.startVert[0].x),
+                y1: parseFloat(this.startVert[0].y),
+                x2: parseFloat(this.startVert[1].x),
+                y2: parseFloat(this.startVert[1].y),
+            };
+            vert0.size = vert0.x2 - vert0.x1;
+            vert0.cx = vert0.x2 - vert0.size/2;
+            vert0.cy = vert0.y2 - vert0.size/2;
+        }
+
+        if (this.endVert) {
+            vert1 = {
+                x1: parseFloat(this.endVert[0].x),
+                y1: parseFloat(this.endVert[0].y),
+                x2: parseFloat(this.endVert[1].x),
+                y2: parseFloat(this.endVert[1].y)
+            };
+            vert1.size = vert1.x2 - vert1.x1;
+            vert1.cx = vert1.x2 - vert1.size/2;
+            vert1.cy = vert1.y2 - vert1.size/2;
+        }
+
+        // Draw Bridge in vert0 |
+        if (vert0) {
+            ctx.strokeStyle = this.options.strokeStyle;
+            ctx.lineWidth = 6;
+            ctx.beginPath();
+            ctx.moveTo(vert0.cx, vert0.y1);
+            ctx.lineTo(vert0.cx, vert0.y1 - vert0.size/4);
+            ctx.stroke();
+        }
+
+        // Draw Bridge in vert1 |
+        if (vert1) {
+            ctx.strokeStyle = this.options.strokeStyle;
+            ctx.lineWidth = 6;
+            ctx.beginPath();
+            ctx.moveTo(vert1.cx, vert1.y1);
+            ctx.lineTo(vert1.cx, vert1.y1 - vert1.size/4);
+            ctx.stroke();
+        }
+
+        // JOIN BRIDGE
+        if (vert0 && vert1) {
+            var lor = (vert1.cx - vert0.cx) > 0 ? 1 : -1
+            ctx.strokeStyle = this.options.strokeStyle;
+            ctx.lineWidth = 6;
+            ctx.beginPath();
+            ctx.moveTo(vert0.cx - 3*lor, vert0.y1 - vert0.size/4);
+            ctx.lineTo(vert1.cx + 3*lor, vert1.y1 - vert1.size/4);
+            ctx.stroke();
+        }
+    }
     // Class HAPUS
     function HAPUS(vertices, options) {
         this.name = 'HAPUS';
@@ -523,6 +617,432 @@ var ODONTOGRAM_MODE_IPX = 16; // Implant + Porcelain crown (ipx - poc)
         ctx.rect(x, y, size, size); 
         ctx.fill();
     }
+    // ARROWS
+    // Class ARROW_TOP_LEFT
+    function ARROW_TOP_LEFT(vertices, options) {
+        this.name = 'ARROW_TOP_LEFT';
+        this.vertices = vertices;
+        this.options = $.extend({ }, options);
+        return this;
+    }
+    ARROW_TOP_LEFT.prototype.render = function(ctx) {
+        var x1 = parseFloat(this.vertices[0].x);
+        var y1 = parseFloat(this.vertices[0].y);
+        var x2 = parseFloat(this.vertices[1].x);
+        var y2 = parseFloat(this.vertices[1].y);
+
+        var fromx, fromy, tox, toy;
+        fromx = x2 - (x2 - x1)/4;
+        fromy = y1 - 10;
+        tox = fromx - 25;
+        toy = fromy;
+
+        // fromx = 50;
+        // fromy = 20;
+        // tox = 25;
+        // toy = 20;
+
+        var headlen = 10;
+        var lineWidth = 2;
+
+        var angle = Math.atan2(toy-fromy,tox-fromx);
+
+        ctx.beginPath();
+        ctx.moveTo(fromx, fromy);
+        ctx.lineTo(tox, toy);
+        ctx.strokeStyle = "#000000";
+        ctx.lineWidth = lineWidth;
+        ctx.stroke();
+
+        //starting a new path from the head of the arrow to one of the sides of the point
+        ctx.beginPath();
+        ctx.moveTo(tox, toy);
+        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+
+        //path from the side point of the arrow, to the other side point
+        ctx.lineTo(tox-headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle+Math.PI/7));
+
+        //path from the side point back to the tip of the arrow, and then again to the opposite side point
+        ctx.lineTo(tox, toy);
+        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+
+        //draws the paths created above
+        ctx.strokeStyle = "#000000";
+        ctx.fillStyle = "#000000";
+        ctx.lineWidth = lineWidth;
+        ctx.stroke();
+        ctx.fill();
+    }
+
+    // Class ARROW_TOP_RIGHT
+    function ARROW_TOP_RIGHT(vertices, options) {
+        this.name = 'ARROW_TOP_RIGHT';
+        this.vertices = vertices;
+        this.options = $.extend({ }, options);
+        return this;
+    }
+    ARROW_TOP_RIGHT.prototype.render = function(ctx) {
+        var x1 = parseFloat(this.vertices[0].x);
+        var y1 = parseFloat(this.vertices[0].y);
+        var x2 = parseFloat(this.vertices[1].x);
+        var y2 = parseFloat(this.vertices[1].y);
+
+        var fromx, fromy, tox, toy;
+        fromx = x1 + (x2 - x1)/4;
+        fromy = y1 - 10;
+        tox = fromx + 25;
+        toy = fromy;
+
+        // fromx = 60;
+        // fromy = 20;
+        // tox = 90;
+        // toy = 20;
+
+        var headlen = 10;
+        var lineWidth = 2;
+
+        var angle = Math.atan2(toy-fromy,tox-fromx);
+
+        ctx.beginPath();
+        ctx.moveTo(fromx, fromy);
+        ctx.lineTo(tox, toy);
+        ctx.strokeStyle = "#000000";
+        ctx.lineWidth = lineWidth;
+        ctx.stroke();
+
+        //starting a new path from the head of the arrow to one of the sides of the point
+        ctx.beginPath();
+        ctx.moveTo(tox, toy);
+        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+
+        //path from the side point of the arrow, to the other side point
+        ctx.lineTo(tox-headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle+Math.PI/7));
+
+        //path from the side point back to the tip of the arrow, and then again to the opposite side point
+        ctx.lineTo(tox, toy);
+        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+
+        //draws the paths created above
+        ctx.strokeStyle = "#000000";
+        ctx.fillStyle = "#000000";
+        ctx.lineWidth = lineWidth;
+        ctx.stroke();
+        ctx.fill();
+    }
+
+    // Class ARROW_TOP_TURN_LEFT
+    function ARROW_TOP_TURN_LEFT(vertices, options) {
+        this.name = 'ARROW_TOP_TURN_LEFT';
+        this.vertices = vertices;
+        this.options = $.extend({ }, options);
+        return this;
+    }
+    ARROW_TOP_TURN_LEFT.prototype.render = function(ctx) {
+        var x1 = parseFloat(this.vertices[0].x);
+        var y1 = parseFloat(this.vertices[0].y);
+        var x2 = parseFloat(this.vertices[1].x);
+        var y2 = parseFloat(this.vertices[1].y);
+
+        var fromx, fromy, tox, toy;
+        fromx = x1 + (x2 - x1)/4;
+        fromy = y1 - 10;
+        tox = fromx + 10;
+        toy = fromy;
+
+        // fromx = 180;
+        // fromy = 20;
+        // tox = 190;
+        // toy = 20;
+
+        var headlen = 10;
+        var lineWidth = 2;
+
+        ctx.strokeStyle = "#000000";
+        ctx.fillStyle = "#000000";
+        ctx.lineWidth = lineWidth;
+
+        ctx.beginPath();
+        ctx.arc(tox, fromy, 5, 1.5*Math.PI, 0.5*Math.PI);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(tox, fromy-5);
+        ctx.lineTo(fromx, fromy-5);
+        ctx.stroke();
+
+        var angle = Math.atan2(toy-fromy,tox-fromx);
+
+        toy = toy-5;
+        fromx = fromx-5;
+        ctx.beginPath();
+        ctx.moveTo(fromx, toy);
+        ctx.lineTo(fromx+headlen*Math.cos(angle+Math.PI/7),toy+headlen*Math.sin(angle+Math.PI/7));
+        ctx.lineTo(fromx+headlen*Math.cos(angle-Math.PI/7),toy+headlen*Math.sin(angle-Math.PI/7));
+        ctx.lineTo(fromx, toy);
+        ctx.lineTo(fromx+headlen*Math.cos(angle+Math.PI/7),toy+headlen*Math.sin(angle-Math.PI/7));
+        ctx.stroke();
+        ctx.fill();
+    }
+
+    // Class ARROW_TOP_TURN_RIGHT
+    function ARROW_TOP_TURN_RIGHT(vertices, options) {
+        this.name = 'ARROW_TOP_TURN_RIGHT';
+        this.vertices = vertices;
+        this.options = $.extend({ }, options);
+        return this;
+    }
+    ARROW_TOP_TURN_RIGHT.prototype.render = function(ctx) {
+        var x1 = parseFloat(this.vertices[0].x);
+        var y1 = parseFloat(this.vertices[0].y);
+        var x2 = parseFloat(this.vertices[1].x);
+        var y2 = parseFloat(this.vertices[1].y);
+
+        var fromx, fromy, tox, toy;
+        fromx = x2 - (x2 - x1)/2;
+        fromy = y1 - 10;
+        tox = fromx + 10;
+        toy = fromy;
+
+        var headlen = 10;
+        var lineWidth = 2;
+
+        ctx.strokeStyle = "#000000";
+        ctx.fillStyle = "#000000";
+        ctx.lineWidth = lineWidth;
+
+        ctx.beginPath();
+        ctx.arc(fromx, fromy, 5, 0.38*Math.PI, 1.5*Math.PI);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(fromx, fromy-5);
+        ctx.lineTo(tox, fromy-5);
+        ctx.stroke();
+
+        var angle = Math.atan2(toy-fromy,tox-fromx);
+
+        toy = toy-5;
+        tox = tox+5;
+        ctx.beginPath();
+        ctx.moveTo(tox, toy);
+        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+        ctx.lineTo(tox-headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle+Math.PI/7));
+        ctx.lineTo(tox, toy);
+        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+        ctx.stroke();
+        ctx.fill();
+    }
+
+    // Class ARROW_BOTTOM_LEFT
+    function ARROW_BOTTOM_LEFT(vertices, options) {
+        this.name = 'ARROW_BOTTOM_LEFT';
+        this.vertices = vertices;
+        this.options = $.extend({ }, options);
+        return this;
+    }
+    ARROW_BOTTOM_LEFT.prototype.render = function(ctx) {
+        var x1 = parseFloat(this.vertices[0].x);
+        var y1 = parseFloat(this.vertices[0].y);
+        var x2 = parseFloat(this.vertices[1].x);
+        var y2 = parseFloat(this.vertices[1].y);
+
+        var fromx, fromy, tox, toy;
+        fromx = x2 - (x2 - x1)/4;
+        fromy = y2 + 10;
+        tox = fromx - 25;
+        toy = fromy;
+
+        // fromx = 50;
+        // fromy = 20;
+        // tox = 25;
+        // toy = 20;
+
+        var headlen = 10;
+        var lineWidth = 2;
+
+        var angle = Math.atan2(toy-fromy,tox-fromx);
+
+        ctx.beginPath();
+        ctx.moveTo(fromx, fromy);
+        ctx.lineTo(tox, toy);
+        ctx.strokeStyle = "#000000";
+        ctx.lineWidth = lineWidth;
+        ctx.stroke();
+
+        //starting a new path from the head of the arrow to one of the sides of the point
+        ctx.beginPath();
+        ctx.moveTo(tox, toy);
+        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+
+        //path from the side point of the arrow, to the other side point
+        ctx.lineTo(tox-headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle+Math.PI/7));
+
+        //path from the side point back to the tip of the arrow, and then again to the opposite side point
+        ctx.lineTo(tox, toy);
+        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+
+        //draws the paths created above
+        ctx.strokeStyle = "#000000";
+        ctx.fillStyle = "#000000";
+        ctx.lineWidth = lineWidth;
+        ctx.stroke();
+        ctx.fill();
+    }
+
+    // Class ARROW_BOTTOM_RIGHT
+    function ARROW_BOTTOM_RIGHT(vertices, options) {
+        this.name = 'ARROW_BOTTOM_RIGHT';
+        this.vertices = vertices;
+        this.options = $.extend({ }, options);
+        return this;
+    }
+    ARROW_BOTTOM_RIGHT.prototype.render = function(ctx) {
+        var x1 = parseFloat(this.vertices[0].x);
+        var y1 = parseFloat(this.vertices[0].y);
+        var x2 = parseFloat(this.vertices[1].x);
+        var y2 = parseFloat(this.vertices[1].y);
+
+        var fromx, fromy, tox, toy;
+        fromx = x1 + (x2 - x1)/4;
+        fromy = y2 + 10;
+        tox = fromx + 25;
+        toy = fromy;
+
+        // fromx = 60;
+        // fromy = 20;
+        // tox = 90;
+        // toy = 20;
+
+        var headlen = 10;
+        var lineWidth = 2;
+
+        var angle = Math.atan2(toy-fromy,tox-fromx);
+
+        ctx.beginPath();
+        ctx.moveTo(fromx, fromy);
+        ctx.lineTo(tox, toy);
+        ctx.strokeStyle = "#000000";
+        ctx.lineWidth = lineWidth;
+        ctx.stroke();
+
+        //starting a new path from the head of the arrow to one of the sides of the point
+        ctx.beginPath();
+        ctx.moveTo(tox, toy);
+        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+
+        //path from the side point of the arrow, to the other side point
+        ctx.lineTo(tox-headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle+Math.PI/7));
+
+        //path from the side point back to the tip of the arrow, and then again to the opposite side point
+        ctx.lineTo(tox, toy);
+        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+
+        //draws the paths created above
+        ctx.strokeStyle = "#000000";
+        ctx.fillStyle = "#000000";
+        ctx.lineWidth = lineWidth;
+        ctx.stroke();
+        ctx.fill();
+    }
+
+    // Class ARROW_BOTTOM_TURN_LEFT
+    function ARROW_BOTTOM_TURN_LEFT(vertices, options) {
+        this.name = 'ARROW_BOTTOM_TURN_LEFT';
+        this.vertices = vertices;
+        this.options = $.extend({ }, options);
+        return this;
+    }
+    ARROW_BOTTOM_TURN_LEFT.prototype.render = function(ctx) {
+        var x1 = parseFloat(this.vertices[0].x);
+        var y1 = parseFloat(this.vertices[0].y);
+        var x2 = parseFloat(this.vertices[1].x);
+        var y2 = parseFloat(this.vertices[1].y);
+
+        var fromx, fromy, tox, toy;
+        fromx = x2 - (x2 - x1)/2;
+        fromy = y2 + 10;
+        tox = fromx - 10;
+        toy = fromy + 5;
+
+        var headlen = 10;
+        var lineWidth = 2;
+
+        ctx.strokeStyle = "#000000";
+        ctx.fillStyle = "#000000";
+        ctx.lineWidth = lineWidth;
+
+        ctx.beginPath();
+        ctx.arc(fromx, fromy, 5, 1.5*Math.PI, 0.5*Math.PI);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(tox, toy);
+        ctx.lineTo(fromx, toy);
+        ctx.stroke();
+
+        var angle = Math.atan2(toy-fromy,tox);
+
+        toy = toy;
+        tox = tox - 5;
+        ctx.beginPath();
+        ctx.moveTo(tox, toy);
+        ctx.lineTo(tox+headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle+Math.PI/7));
+        ctx.lineTo(tox+headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+        ctx.lineTo(tox, toy);
+        ctx.lineTo(tox+headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle+Math.PI/7));
+        ctx.stroke();
+        ctx.fill();
+    }
+
+    // Class ARROW_BOTTOM_TURN_RIGHT
+    function ARROW_BOTTOM_TURN_RIGHT(vertices, options) {
+        this.name = 'ARROW_BOTTOM_TURN_RIGHT';
+        this.vertices = vertices;
+        this.options = $.extend({ }, options);
+        return this;
+    }
+    ARROW_BOTTOM_TURN_RIGHT.prototype.render = function(ctx) {
+        var x1 = parseFloat(this.vertices[0].x);
+        var y1 = parseFloat(this.vertices[0].y);
+        var x2 = parseFloat(this.vertices[1].x);
+        var y2 = parseFloat(this.vertices[1].y);
+
+        var fromx, fromy, tox, toy;
+        fromx = x2 - (x2 - x1)/2;
+        fromy = y2 + 10;
+        tox = fromx + 10;
+        toy = fromy + 5;
+
+        var headlen = 10;
+        var lineWidth = 2;
+
+        ctx.strokeStyle = "#000000";
+        ctx.fillStyle = "#000000";
+        ctx.lineWidth = lineWidth;
+
+        ctx.beginPath();
+        ctx.arc(fromx, fromy, 5, 0.38*Math.PI, 1.5*Math.PI);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(fromx, toy);
+        ctx.lineTo(tox, toy);
+        ctx.stroke();
+
+        var angle = Math.atan2(toy-fromy,tox);
+
+        toy = toy;
+        tox = tox + 5;
+        ctx.beginPath();
+        ctx.moveTo(tox, toy);
+        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+        ctx.lineTo(tox-headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle+Math.PI/7));
+        ctx.lineTo(tox, toy);
+        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+        ctx.stroke();
+        ctx.fill();
+    }
+
 
     // Class Odontogram
     function Odontogram(jqEl, settings) {
@@ -698,6 +1218,390 @@ var ODONTOGRAM_MODE_IPX = 16; // Implant + Porcelain crown (ipx - poc)
         }
     }
 
+    // TOP
+    function top_leftArrow(ctx, coord) {
+        var x1 = parseFloat(coord.x1);
+        var y1 = parseFloat(coord.y1);
+        var x2 = parseFloat(coord.x2);
+        var y2 = parseFloat(coord.y2);
+
+        var fromx, fromy, tox, toy;
+        fromx = x2 - (x2 - x1)/4;
+        fromy = y1 - 10;
+        tox = fromx - 25;
+        toy = fromy;
+
+        // fromx = 50;
+        // fromy = 20;
+        // tox = 25;
+        // toy = 20;
+
+        var headlen = 10;
+        var lineWidth = 2;
+
+        var angle = Math.atan2(toy-fromy,tox-fromx);
+
+        ctx.beginPath();
+        ctx.moveTo(fromx, fromy);
+        ctx.lineTo(tox, toy);
+        ctx.strokeStyle = "#000000";
+        ctx.lineWidth = lineWidth;
+        ctx.stroke();
+
+        //starting a new path from the head of the arrow to one of the sides of the point
+        ctx.beginPath();
+        ctx.moveTo(tox, toy);
+        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+
+        //path from the side point of the arrow, to the other side point
+        ctx.lineTo(tox-headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle+Math.PI/7));
+
+        //path from the side point back to the tip of the arrow, and then again to the opposite side point
+        ctx.lineTo(tox, toy);
+        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+
+        //draws the paths created above
+        ctx.strokeStyle = "#000000";
+        ctx.fillStyle = "#000000";
+        ctx.lineWidth = lineWidth;
+        ctx.stroke();
+        ctx.fill();
+    }
+    function top_rightArrow(ctx, coord) {
+        var x1 = parseFloat(coord.x1);
+        var y1 = parseFloat(coord.y1);
+        var x2 = parseFloat(coord.x2);
+        var y2 = parseFloat(coord.y2);
+
+        var fromx, fromy, tox, toy;
+        fromx = x1 + (x2 - x1)/4;
+        fromy = y1 - 10;
+        tox = fromx + 25;
+        toy = fromy;
+
+        // fromx = 60;
+        // fromy = 20;
+        // tox = 90;
+        // toy = 20;
+
+        var headlen = 10;
+        var lineWidth = 2;
+
+        var angle = Math.atan2(toy-fromy,tox-fromx);
+
+        ctx.beginPath();
+        ctx.moveTo(fromx, fromy);
+        ctx.lineTo(tox, toy);
+        ctx.strokeStyle = "#000000";
+        ctx.lineWidth = lineWidth;
+        ctx.stroke();
+
+        //starting a new path from the head of the arrow to one of the sides of the point
+        ctx.beginPath();
+        ctx.moveTo(tox, toy);
+        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+
+        //path from the side point of the arrow, to the other side point
+        ctx.lineTo(tox-headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle+Math.PI/7));
+
+        //path from the side point back to the tip of the arrow, and then again to the opposite side point
+        ctx.lineTo(tox, toy);
+        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+
+        //draws the paths created above
+        ctx.strokeStyle = "#000000";
+        ctx.fillStyle = "#000000";
+        ctx.lineWidth = lineWidth;
+        ctx.stroke();
+        ctx.fill();
+    }
+    function top_turnLeftArrow(ctx, coord) {
+        var x1 = parseFloat(coord.x1);
+        var y1 = parseFloat(coord.y1);
+        var x2 = parseFloat(coord.x2);
+        var y2 = parseFloat(coord.y2);
+
+        var fromx, fromy, tox, toy;
+        fromx = x2 - (x2 - x1)/2;
+        fromy = y1 - 10;
+        tox = fromx + 10;
+        toy = fromy;
+
+        var headlen = 10;
+        var lineWidth = 2;
+
+        ctx.strokeStyle = "#000000";
+        ctx.fillStyle = "#000000";
+        ctx.lineWidth = lineWidth;
+
+        ctx.beginPath();
+        ctx.arc(fromx, fromy, 5, 0.38*Math.PI, 1.5*Math.PI);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(fromx, fromy-5);
+        ctx.lineTo(tox, fromy-5);
+        ctx.stroke();
+
+        var angle = Math.atan2(toy-fromy,tox-fromx);
+
+        toy = toy-5;
+        tox = tox+5;
+        ctx.beginPath();
+        ctx.moveTo(tox, toy);
+        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+        ctx.lineTo(tox-headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle+Math.PI/7));
+        ctx.lineTo(tox, toy);
+        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+        ctx.stroke();
+        ctx.fill();
+
+        //starting a new path from the head of the arrow to one of the sides of the point
+        // ctx.beginPath();
+        // ctx.moveTo(tox, toy);
+        // ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+
+        //path from the side point of the arrow, to the other side point
+        // ctx.lineTo(tox-headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle+Math.PI/7));
+
+        //path from the side point back to the tip of the arrow, and then again to the opposite side point
+        // ctx.lineTo(tox, toy);
+        // ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+
+        //draws the paths created above
+        // ctx.strokeStyle = "#000000";
+        // ctx.lineWidth = lineWidth;
+        // ctx.stroke();
+    }
+    function top_turnRightArrow(ctx, coord) {
+        var x1 = parseFloat(coord.x1);
+        var y1 = parseFloat(coord.y1);
+        var x2 = parseFloat(coord.x2);
+        var y2 = parseFloat(coord.y2);
+
+        var fromx, fromy, tox, toy;
+        fromx = x1 + (x2 - x1)/4;
+        fromy = y1 - 10;
+        tox = fromx + 10;
+        toy = fromy;
+
+        // fromx = 180;
+        // fromy = 20;
+        // tox = 190;
+        // toy = 20;
+
+        var headlen = 10;
+        var lineWidth = 2;
+
+        ctx.strokeStyle = "#000000";
+        ctx.fillStyle = "#000000";
+        ctx.lineWidth = lineWidth;
+
+        ctx.beginPath();
+        ctx.arc(tox, fromy, 5, 1.5*Math.PI, 0.5*Math.PI);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(tox, fromy-5);
+        ctx.lineTo(fromx, fromy-5);
+        ctx.stroke();
+
+        var angle = Math.atan2(toy-fromy,tox-fromx);
+
+        toy = toy-5;
+        fromx = fromx-5;
+        ctx.beginPath();
+        ctx.moveTo(fromx, toy);
+        ctx.lineTo(fromx+headlen*Math.cos(angle+Math.PI/7),toy+headlen*Math.sin(angle+Math.PI/7));
+        ctx.lineTo(fromx+headlen*Math.cos(angle-Math.PI/7),toy+headlen*Math.sin(angle-Math.PI/7));
+        ctx.lineTo(fromx, toy);
+        ctx.lineTo(fromx+headlen*Math.cos(angle+Math.PI/7),toy+headlen*Math.sin(angle-Math.PI/7));
+        ctx.stroke();
+        ctx.fill();
+    }
+    // BOTTOM
+    function bottom_leftArrow(ctx, coord) {
+        var x1 = parseFloat(coord.x1);
+        var y1 = parseFloat(coord.y1);
+        var x2 = parseFloat(coord.x2);
+        var y2 = parseFloat(coord.y2);
+
+        var fromx, fromy, tox, toy;
+        fromx = x2 - (x2 - x1)/4;
+        fromy = y2 + 10;
+        tox = fromx - 25;
+        toy = fromy;
+
+        // fromx = 50;
+        // fromy = 20;
+        // tox = 25;
+        // toy = 20;
+
+        var headlen = 10;
+        var lineWidth = 2;
+
+        var angle = Math.atan2(toy-fromy,tox-fromx);
+
+        ctx.beginPath();
+        ctx.moveTo(fromx, fromy);
+        ctx.lineTo(tox, toy);
+        ctx.strokeStyle = "#000000";
+        ctx.lineWidth = lineWidth;
+        ctx.stroke();
+
+        //starting a new path from the head of the arrow to one of the sides of the point
+        ctx.beginPath();
+        ctx.moveTo(tox, toy);
+        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+
+        //path from the side point of the arrow, to the other side point
+        ctx.lineTo(tox-headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle+Math.PI/7));
+
+        //path from the side point back to the tip of the arrow, and then again to the opposite side point
+        ctx.lineTo(tox, toy);
+        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+
+        //draws the paths created above
+        ctx.strokeStyle = "#000000";
+        ctx.fillStyle = "#000000";
+        ctx.lineWidth = lineWidth;
+        ctx.stroke();
+        ctx.fill();
+    }
+
+    function bottom_rightArrow(ctx, coord) {
+        var x1 = parseFloat(coord.x1);
+        var y1 = parseFloat(coord.y1);
+        var x2 = parseFloat(coord.x2);
+        var y2 = parseFloat(coord.y2);
+
+        var fromx, fromy, tox, toy;
+        fromx = x1 + (x2 - x1)/4;
+        fromy = y2 + 10;
+        tox = fromx + 25;
+        toy = fromy;
+
+        // fromx = 60;
+        // fromy = 20;
+        // tox = 90;
+        // toy = 20;
+
+        var headlen = 10;
+        var lineWidth = 2;
+
+        var angle = Math.atan2(toy-fromy,tox-fromx);
+
+        ctx.beginPath();
+        ctx.moveTo(fromx, fromy);
+        ctx.lineTo(tox, toy);
+        ctx.strokeStyle = "#000000";
+        ctx.lineWidth = lineWidth;
+        ctx.stroke();
+
+        //starting a new path from the head of the arrow to one of the sides of the point
+        ctx.beginPath();
+        ctx.moveTo(tox, toy);
+        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+
+        //path from the side point of the arrow, to the other side point
+        ctx.lineTo(tox-headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle+Math.PI/7));
+
+        //path from the side point back to the tip of the arrow, and then again to the opposite side point
+        ctx.lineTo(tox, toy);
+        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+
+        //draws the paths created above
+        ctx.strokeStyle = "#000000";
+        ctx.fillStyle = "#000000";
+        ctx.lineWidth = lineWidth;
+        ctx.stroke();
+        ctx.fill();
+    }
+
+    function bottom_turnLeftArrow(ctx, coord) {
+        var x1 = parseFloat(coord.x1);
+        var y1 = parseFloat(coord.y1);
+        var x2 = parseFloat(coord.x2);
+        var y2 = parseFloat(coord.y2);
+
+        var fromx, fromy, tox, toy;
+        fromx = x2 - (x2 - x1)/2;
+        fromy = y2 + 10;
+        tox = fromx + 10;
+        toy = fromy + 5;
+
+        var headlen = 10;
+        var lineWidth = 2;
+
+        ctx.strokeStyle = "#000000";
+        ctx.fillStyle = "#000000";
+        ctx.lineWidth = lineWidth;
+
+        ctx.beginPath();
+        ctx.arc(fromx, fromy, 5, 0.38*Math.PI, 1.5*Math.PI);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(fromx, toy);
+        ctx.lineTo(tox, toy);
+        ctx.stroke();
+
+        var angle = Math.atan2(toy-fromy,tox);
+
+        toy = toy;
+        tox = tox + 5;
+        ctx.beginPath();
+        ctx.moveTo(tox, toy);
+        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+        ctx.lineTo(tox-headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle+Math.PI/7));
+        ctx.lineTo(tox, toy);
+        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+        ctx.stroke();
+        ctx.fill();
+    }
+
+    function bottom_turnRightArrow(ctx, coord) {
+        var x1 = parseFloat(coord.x1);
+        var y1 = parseFloat(coord.y1);
+        var x2 = parseFloat(coord.x2);
+        var y2 = parseFloat(coord.y2);
+
+        var fromx, fromy, tox, toy;
+        fromx = x2 - (x2 - x1)/2;
+        fromy = y2 + 10;
+        tox = fromx - 10;
+        toy = fromy + 5;
+
+        var headlen = 10;
+        var lineWidth = 2;
+
+        ctx.strokeStyle = "#000000";
+        ctx.fillStyle = "#000000";
+        ctx.lineWidth = lineWidth;
+
+        ctx.beginPath();
+        ctx.arc(fromx, fromy, 5, 1.5*Math.PI, 0.5*Math.PI);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(tox, toy);
+        ctx.lineTo(fromx, toy);
+        ctx.stroke();
+
+        var angle = Math.atan2(toy-fromy,tox);
+
+        toy = toy;
+        tox = tox - 5;
+        ctx.beginPath();
+        ctx.moveTo(tox, toy);
+        ctx.lineTo(tox+headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle+Math.PI/7));
+        ctx.lineTo(tox+headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+        ctx.lineTo(tox, toy);
+        ctx.lineTo(tox+headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle+Math.PI/7));
+        ctx.stroke();
+        ctx.fill();
+    }
+
     Odontogram.prototype.redraw = function() {
         var canvas = this.canvas;
         var ctx = this.context;
@@ -723,6 +1627,10 @@ var ODONTOGRAM_MODE_IPX = 16; // Implant + Porcelain crown (ipx - poc)
             for (var x in geoms) {
                 geoms[x].render(ctx);
             }
+        }
+
+        if (this.active_geometry) {
+            this.active_geometry.render(ctx);
         }
 
         return this;
@@ -759,6 +1667,7 @@ var ODONTOGRAM_MODE_IPX = 16; // Implant + Porcelain crown (ipx - poc)
                 initialize(this, arg1);
                 break;
             case 'setMode':
+                instance.active_geometry = null;
                 checkOdontogram(this, mode);
                 setMode(this, arg1);
                 break;
@@ -878,8 +1787,38 @@ var ODONTOGRAM_MODE_IPX = 16; // Implant + Porcelain crown (ipx - poc)
             case ODONTOGRAM_MODE_IPX:
                 newGeometry = new IPX(geometry.vertices);
                 break;
+            case ODONTOGRAM_MODE_FRM_ACR:
+                newGeometry = new FRM_ACR(geometry.vertices);
+                break;
+            case ODONTOGRAM_MODE_BRIDGE:
+                newGeometry = new BRIDGE(geometry[0], geometry[1]);
+                break;
             case ODONTOGRAM_MODE_HAPUS:
                 newGeometry = new HAPUS(geometry.vertices);
+                break;
+            case ODONTOGRAM_MODE_ARROW_TOP_LEFT:
+                newGeometry = new ARROW_TOP_LEFT(geometry.vertices);
+                break;
+            case ODONTOGRAM_MODE_ARROW_TOP_RIGHT:
+                newGeometry = new ARROW_TOP_RIGHT(geometry.vertices);
+                break;
+            case ODONTOGRAM_MODE_ARROW_TOP_TURN_LEFT:
+                newGeometry = new ARROW_TOP_TURN_LEFT(geometry.vertices);
+                break;
+            case ODONTOGRAM_MODE_ARROW_TOP_TURN_RIGHT:
+                newGeometry = new ARROW_TOP_TURN_RIGHT(geometry.vertices);
+                break;
+            case ODONTOGRAM_MODE_ARROW_BOTTOM_LEFT:
+                newGeometry = new ARROW_BOTTOM_LEFT(geometry.vertices);
+                break;
+            case ODONTOGRAM_MODE_ARROW_BOTTOM_RIGHT:
+                newGeometry = new ARROW_BOTTOM_RIGHT(geometry.vertices);
+                break;
+            case ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_LEFT:
+                newGeometry = new ARROW_BOTTOM_TURN_LEFT(geometry.vertices);
+                break;
+            case ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT:
+                newGeometry = new ARROW_BOTTOM_TURN_RIGHT(geometry.vertices);
                 break;
             default:
                 newGeometry = geometry;
@@ -942,6 +1881,37 @@ var ODONTOGRAM_MODE_IPX = 16; // Implant + Porcelain crown (ipx - poc)
                 break;
             case 'IPX':
                 newGeom = new IPX(geometry.vertices, geometry.options);
+                break;
+            case 'FRM_ACR':
+                newGeom = new FRM_ACR(geometry.vertices, geometry.options);
+                break;
+            case 'BRIDGE':
+                console.log("BRIDGE", geometry);
+                // newGeom = new BRIDGE(geometry.vertices, geometry.options);
+                break;
+            case 'ARROW_TOP_LEFT':
+                newGeom = new ARROW_TOP_LEFT(geometry.vertices, geometry.options);
+                break;
+            case 'ARROW_TOP_RIGHT':
+                newGeom = new ARROW_TOP_RIGHT(geometry.vertices, geometry.options);
+                break;
+            case 'ARROW_TOP_TURN_LEFT':
+                newGeom = new ARROW_TOP_TURN_LEFT(geometry.vertices, geometry.options);
+                break;
+            case 'ARROW_TOP_TURN_RIGHT':
+                newGeom = new ARROW_TOP_TURN_RIGHT(geometry.vertices, geometry.options);
+                break;
+            case 'ARROW_BOTTOM_LEFT':
+                newGeom = new ARROW_BOTTOM_LEFT(geometry.vertices, geometry.options);
+                break;
+            case 'ARROW_BOTTOM_RIGHT':
+                newGeom = new ARROW_BOTTOM_RIGHT(geometry.vertices, geometry.options);
+                break;
+            case 'ARROW_BOTTOM_TURN_LEFT':
+                newGeom = new ARROW_BOTTOM_TURN_LEFT(geometry.vertices, geometry.options);
+                break;
+            case 'ARROW_BOTTOM_TURN_RIGHT':
+                newGeom = new ARROW_BOTTOM_TURN_RIGHT(geometry.vertices, geometry.options);
                 break;
             case 'HAPUS':
                 newGeom = new HAPUS(geometry.vertices, geometry.options);
@@ -1111,6 +2081,7 @@ var ODONTOGRAM_MODE_IPX = 16; // Implant + Porcelain crown (ipx - poc)
                             case geom1 instanceof COF:
                             case geom1 instanceof POC:
                             case geom1 instanceof FMC:
+                            case geom1 instanceof BRIDGE:
                                 geometry.push(geom1);
                                 break;
                         }
@@ -1157,6 +2128,8 @@ var ODONTOGRAM_MODE_IPX = 16; // Implant + Porcelain crown (ipx - poc)
                     case geom2 instanceof FMC:
                         switch (true) {
                             case geom1 instanceof RCT:
+                            case geom1 instanceof MIS:
+                            case geom1 instanceof BRIDGE:
                                 geometry.push(geom1);
                                 break;
                         }
@@ -1166,6 +2139,8 @@ var ODONTOGRAM_MODE_IPX = 16; // Implant + Porcelain crown (ipx - poc)
                             case geom1 instanceof POC:
                             case geom1 instanceof IPX:
                             case geom1 instanceof RCT:
+                            case geom1 instanceof MIS:
+                            case geom1 instanceof BRIDGE:
                                 geometry.push(geom1);
                                 break;
                         }
@@ -1174,11 +2149,39 @@ var ODONTOGRAM_MODE_IPX = 16; // Implant + Porcelain crown (ipx - poc)
                         // 
                         break;
                     case geom2 instanceof MIS:
-                        //
+                        switch (true) {
+                            case geom1 instanceof POC:
+                            case geom1 instanceof FMC:
+                            case geom1 instanceof FRM_ACR:
+                            case geom1 instanceof BRIDGE:
+                                geometry.push(geom1);
+                                break;
+                        }
                         break;
                     case geom2 instanceof IPX:
                         switch (true) {
                             case geom1 instanceof POC:
+                            case geom1 instanceof BRIDGE:
+                                geometry.push(geom1);
+                                break;
+                        }
+                        break;
+                    case geom2 instanceof FRM_ACR:
+                        switch (true) {
+                            case geom1 instanceof MIS:
+                            case geom1 instanceof BRIDGE:
+                                geometry.push(geom1);
+                                break;
+                        }
+                        break;
+                    case geom2 instanceof BRIDGE:
+                        switch (true) {
+                            case geom1 instanceof POC:
+                            case geom1 instanceof FMC:
+                            case geom1 instanceof FRM_ACR:
+                            case geom1 instanceof RCT:
+                            case geom1 instanceof MIS:
+                            case geom1 instanceof IPX:
                                 geometry.push(geom1);
                                 break;
                         }
@@ -1233,7 +2236,16 @@ var ODONTOGRAM_MODE_IPX = 16; // Implant + Porcelain crown (ipx - poc)
                 case ODONTOGRAM_MODE_RRX:
                 case ODONTOGRAM_MODE_MIS:
                 case ODONTOGRAM_MODE_IPX:
+                case ODONTOGRAM_MODE_FRM_ACR:
                 case ODONTOGRAM_MODE_HAPUS:
+                case ODONTOGRAM_MODE_ARROW_TOP_LEFT:
+                case ODONTOGRAM_MODE_ARROW_TOP_RIGHT:
+                case ODONTOGRAM_MODE_ARROW_TOP_TURN_LEFT:
+                case ODONTOGRAM_MODE_ARROW_TOP_TURN_RIGHT:
+                case ODONTOGRAM_MODE_ARROW_BOTTOM_LEFT:
+                case ODONTOGRAM_MODE_ARROW_BOTTOM_RIGHT:
+                case ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_LEFT:
+                case ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT:
                     if (isRectIntersect(coord, { x1: mouse.x, y1: mouse.y, x2: mouse.x, y2: mouse.y})) {
                         hoverGeoms = [{
                             vertices: [
@@ -1243,6 +2255,24 @@ var ODONTOGRAM_MODE_IPX = 16; // Implant + Porcelain crown (ipx - poc)
                         }];
                         
                         instance.hoverGeoms = instance.hoverGeoms.concat(hoverGeoms);
+                    }
+                    break;
+                case ODONTOGRAM_MODE_BRIDGE:
+                    if (isRectIntersect(coord, { x1: mouse.x, y1: mouse.y, x2: mouse.x, y2: mouse.y})) {
+                        hoverGeoms = [
+                            { x: coord.x1, y: coord.y1 },
+                            { x: coord.x2, y: coord.y2 }
+                        ];
+                        
+                        if (instance.active_geometry) {
+                            instance.hoverGeoms = [
+                                [instance.active_geometry.startVert, hoverGeoms]
+                            ];
+                        } else {
+                            instance.hoverGeoms = [
+                                [hoverGeoms, null]
+                            ];
+                        }
                     }
                     break;
                 default: // Setiap Bagian
@@ -1295,7 +2325,16 @@ var ODONTOGRAM_MODE_IPX = 16; // Implant + Porcelain crown (ipx - poc)
                 case ODONTOGRAM_MODE_RRX:
                 case ODONTOGRAM_MODE_MIS:
                 case ODONTOGRAM_MODE_IPX:
+                case ODONTOGRAM_MODE_FRM_ACR:
                 case ODONTOGRAM_MODE_HAPUS:
+                case ODONTOGRAM_MODE_ARROW_TOP_LEFT:
+                case ODONTOGRAM_MODE_ARROW_TOP_RIGHT:
+                case ODONTOGRAM_MODE_ARROW_TOP_TURN_LEFT:
+                case ODONTOGRAM_MODE_ARROW_TOP_TURN_RIGHT:
+                case ODONTOGRAM_MODE_ARROW_BOTTOM_LEFT:
+                case ODONTOGRAM_MODE_ARROW_BOTTOM_RIGHT:
+                case ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_LEFT:
+                case ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT:
                     if (isRectIntersect(coord, { x1: mouse.x, y1: mouse.y, x2: mouse.x, y2: mouse.y})) {
                         tempGeoms[keyCoord] = [convertGeom({
                             vertices: [
@@ -1303,6 +2342,38 @@ var ODONTOGRAM_MODE_IPX = 16; // Implant + Porcelain crown (ipx - poc)
                                 { x: coord.x2, y: coord.y2 }
                             ]
                         }, instance.mode)];
+                    }
+                    break;
+                case ODONTOGRAM_MODE_BRIDGE:
+                    if (isRectIntersect(coord, { x1: mouse.x, y1: mouse.y, x2: mouse.x, y2: mouse.y})) {
+                        tempGeoms[keyCoord] = [];
+                        if (instance.active_geometry) {
+                            instance.active_geometry = convertGeom([
+                                instance.active_geometry.startVert,
+                                [
+                                    { x: coord.x1, y: coord.y1 },
+                                    { x: coord.x2, y: coord.y2 }
+                                ]
+                            ], instance.mode);
+
+                            tempGeoms[keyCoord].push(instance.active_geometry);
+                            instance.active_geometry = null;
+                        } else {
+                            instance.active_geometry = convertGeom([
+                                [
+                                    { x: coord.x1, y: coord.y1 },
+                                    { x: coord.x2, y: coord.y2 }
+                                ],
+                                null
+                            ], instance.mode);
+                        }
+
+                        // tempGeoms[keyCoord] = [convertGeom({
+                        //     vertices: [
+                        //         { x: coord.x1, y: coord.y1 },
+                        //         { x: coord.x2, y: coord.y2 }
+                        //     ]
+                        // }, instance.mode)];
                     }
                     break;
                 default: // Setiap Bagian
