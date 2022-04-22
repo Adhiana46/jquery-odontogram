@@ -2,6 +2,12 @@
 
 Easy to use jQuery plugin for creating Odontogram using HTML5 Canvas.
 
+Example
+-----
+![Example 1](1.gif)
+![Example 2](2.gif)
+![Example 3](3.gif)
+
 Usage
 -----
 Initialize Odontogram, make sure the element is a Canvas.
