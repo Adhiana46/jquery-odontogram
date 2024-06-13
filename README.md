@@ -11,7 +11,7 @@ Example
 Usage
 -----
 Initialize Odontogram, make sure the element is a Canvas.
-```bash
+```js
 $("#odontogram-canvas").odontogram({
 	width: "900px",
 	height: "420px"
@@ -19,150 +19,179 @@ $("#odontogram-canvas").odontogram({
 ```
 
 Set to Default mode.
-```bash
+```js
 $("#odontogram-canvas").odontogram('setMode', ODONTOGRAM_MODE_DEFAULT);
 ```
 
 Set to Delete mode.
-```bash
+```js
 $("#odontogram-canvas").odontogram('setMode', ODONTOGRAM_MODE_HAPUS);
 ```
 
 Set to AMF mode.
-```bash
+```js
 $("#odontogram-canvas").odontogram('setMode', ODONTOGRAM_MODE_AMF);
 ```
 
 Set to AMF mode.
-```bash
+```js
 $("#odontogram-canvas").odontogram('setMode', ODONTOGRAM_MODE_AMF);
 ```
 
 Set to COF mode.
-```bash
+```js
 $("#odontogram-canvas").odontogram('setMode', ODONTOGRAM_MODE_COF);
 ```
 
 Set to FIS mode.
-```bash
+```js
 $("#odontogram-canvas").odontogram('setMode', ODONTOGRAM_MODE_FIS);
 ```
 
 Set to NVT mode.
-```bash
+```js
 $("#odontogram-canvas").odontogram('setMode', ODONTOGRAM_MODE_NVT);
 ```
 
 Set to RCT mode.
-```bash
+```js
 $("#odontogram-canvas").odontogram('setMode', ODONTOGRAM_MODE_RCT);
 ```
 
 Set to NON mode.
-```bash
+```js
 $("#odontogram-canvas").odontogram('setMode', ODONTOGRAM_MODE_NON);
 ```
 
 Set to UNE mode.
-```bash
+```js
 $("#odontogram-canvas").odontogram('setMode', ODONTOGRAM_MODE_UNE);
 ```
 
 Set to PRE mode.
-```bash
+```js
 $("#odontogram-canvas").odontogram('setMode', ODONTOGRAM_MODE_PRE);
 ```
 
 Set to ANO mode.
-```bash
+```js
 $("#odontogram-canvas").odontogram('setMode', ODONTOGRAM_MODE_ANO);
 ```
 
 Set to CARIES mode.
-```bash
+```js
 $("#odontogram-canvas").odontogram('setMode', ODONTOGRAM_MODE_CARIES);
 ```
 
 Set to CFR mode.
-```bash
+```js
 $("#odontogram-canvas").odontogram('setMode', ODONTOGRAM_MODE_CFR);
 ```
 
 Set to FMC mode.
-```bash
+```js
 $("#odontogram-canvas").odontogram('setMode', ODONTOGRAM_MODE_FMC);
 ```
 
 Set to POC mode.
-```bash
+```js
 $("#odontogram-canvas").odontogram('setMode', ODONTOGRAM_MODE_POC);
 ```
 
 Set to RRX mode.
-```bash
+```js
 $("#odontogram-canvas").odontogram('setMode', ODONTOGRAM_MODE_RRX);
 ```
 
 Set to MIS mode.
-```bash
+```js
 $("#odontogram-canvas").odontogram('setMode', ODONTOGRAM_MODE_MIS);
 ```
 
 Set to IPX mode.
-```bash
+```js
 $("#odontogram-canvas").odontogram('setMode', ODONTOGRAM_MODE_IPX);
 ```
 
 Set to FRM_ACR mode.
-```bash
+```js
 $("#odontogram-canvas").odontogram('setMode', ODONTOGRAM_MODE_FRM_ACR);
 ```
 
 Set to BRIDGE mode.
-```bash
+```js
 $("#odontogram-canvas").odontogram('setMode', ODONTOGRAM_MODE_BRIDGE);
 ```
 
 Set to ARROW_TOP_LEFT mode.
-```bash
+```js
 $("#odontogram-canvas").odontogram('setMode', ODONTOGRAM_MODE_ARROW_TOP_LEFT);
 ```
 
 Set to ARROW_TOP_RIGHT mode.
-```bash
+```js
 $("#odontogram-canvas").odontogram('setMode', ODONTOGRAM_MODE_ARROW_TOP_RIGHT);
 ```
 
 Set to ARROW_TOP_TURN_LEFT mode.
-```bash
+```js
 $("#odontogram-canvas").odontogram('setMode', ODONTOGRAM_MODE_ARROW_TOP_TURN_LEFT);
 ```
 
 Set to ARROW_TOP_TURN_RIGHT mode.
-```bash
+```js
 $("#odontogram-canvas").odontogram('setMode', ODONTOGRAM_MODE_ARROW_TOP_TURN_RIGHT);
 ```
 
 Set to ARROW_BOTTOM_LEFT mode.
-```bash
+```js
 $("#odontogram-canvas").odontogram('setMode', ODONTOGRAM_MODE_ARROW_BOTTOM_LEFT);
 ```
 
 Set to ARROW_BOTTOM_RIGHT mode.
-```bash
+```js
 $("#odontogram-canvas").odontogram('setMode', ODONTOGRAM_MODE_ARROW_BOTTOM_RIGHT);
 ```
 
 Set to ARROW_BOTTOM_TURN_LEFT mode.
-```bash
+```js
 $("#odontogram-canvas").odontogram('setMode', ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_LEFT);
 ```
 
 Set to ARROW_BOTTOM_TURN_RIGHT mode.
-```bash
+```js
 $("#odontogram-canvas").odontogram('setMode', ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT);
 ```
 
+Event listener for get all the position with the procedure name (code)
+```js
+$('#odontogram').on('change', function (_, geometry) {
+	console.log(geometry)
+})
+```
+
+Set data by Position and Procedure Name (code).
+```js
+$("#odontogram-canvas").data('odontogram').setGeometryByPos([
+	{ code: 'AMF', pos: '18-R' },
+	{ code: 'AMF', pos: '18-L' },
+	{ code: 'CARIES', pos: '83-M' },
+	{ code: 'POC', pos: '84' },
+]);
+```
+or
+```js
+var odontogram = $("#odontogram-canvas").odontogram('init', {
+	width: "900px",
+	height: "420px"
+});
+odontogram.setGeometryByPos([
+	{ code: 'AMF', pos: '18-R' },
+	{ code: 'AMF', pos: '18-L' },
+	{ code: 'CARIES', pos: '83-M' },
+	{ code: 'POC', pos: '84' },
+]);
+```
 
 
 Contribute

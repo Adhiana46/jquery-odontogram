@@ -31,7 +31,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
 
 
 // Create closure.
-(function( $ ) {
+(function ($) {
     // Class Polygon
     function Polygon(vertices, options) {
         this.name = 'Polygon';
@@ -39,7 +39,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         this.options = options;
         return this;
     }
-    Polygon.prototype.render = function(ctx) {
+    Polygon.prototype.render = function (ctx) {
         if (this.vertices.length <= 0) return;
         ctx.fillStyle = this.options.fillStyle;
         ctx.beginPath();
@@ -66,7 +66,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         this.options = $.extend({ fillStyle: '#222' }, options);
         return this;
     }
-    AMF.prototype.render = function(ctx) {
+    AMF.prototype.render = function (ctx) {
         ctx.fillStyle = this.options.fillStyle;
         ctx.beginPath();
 
@@ -92,7 +92,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         this.options = $.extend({ fillStyle: '#29b522' }, options);
         return this;
     }
-    COF.prototype.render = function(ctx) {
+    COF.prototype.render = function (ctx) {
         ctx.fillStyle = this.options.fillStyle;
         ctx.beginPath();
 
@@ -148,7 +148,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         this.options = $.extend({ fillStyle: '#ed3bed' }, options);
         return this;
     }
-    FIS.prototype.render = function(ctx) {
+    FIS.prototype.render = function (ctx) {
         ctx.fillStyle = this.options.fillStyle;
         ctx.beginPath();
 
@@ -174,19 +174,19 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         this.options = $.extend({ strokeStyle: '#333', height: 25 }, options);
         return this;
     }
-    NVT.prototype.render = function(ctx) {
-        var x1 = parseFloat(this.vertices[0].x)+1;
-        var x2 = parseFloat(this.vertices[1].x)+1;
-        var y1 = parseFloat(this.vertices[0].y)+1;
-        var y2 = parseFloat(this.vertices[1].y)+1;
+    NVT.prototype.render = function (ctx) {
+        var x1 = parseFloat(this.vertices[0].x) + 1;
+        var x2 = parseFloat(this.vertices[1].x) + 1;
+        var y1 = parseFloat(this.vertices[0].y) + 1;
+        var y2 = parseFloat(this.vertices[1].y) + 1;
         var size = x2 - x1;
         var height = parseFloat(this.options.height);
 
         ctx.strokeStyle = this.options.strokeStyle;
         ctx.beginPath();
-        ctx.moveTo(x1 + size/4, y2);
-        ctx.lineTo(x1 + size/2, y2 + height);
-        ctx.lineTo(x2 - size/4, y2);
+        ctx.moveTo(x1 + size / 4, y2);
+        ctx.lineTo(x1 + size / 2, y2 + height);
+        ctx.lineTo(x2 - size / 4, y2);
         ctx.closePath();
         ctx.stroke();
     }
@@ -197,20 +197,20 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         this.options = $.extend({ strokeStyle: '#333', fillStyle: '#333', height: 25 }, options);
         return this;
     }
-    RCT.prototype.render = function(ctx) {
-        var x1 = parseFloat(this.vertices[0].x)+1;
-        var x2 = parseFloat(this.vertices[1].x)+1;
-        var y1 = parseFloat(this.vertices[0].y)+1;
-        var y2 = parseFloat(this.vertices[1].y)+1;
+    RCT.prototype.render = function (ctx) {
+        var x1 = parseFloat(this.vertices[0].x) + 1;
+        var x2 = parseFloat(this.vertices[1].x) + 1;
+        var y1 = parseFloat(this.vertices[0].y) + 1;
+        var y2 = parseFloat(this.vertices[1].y) + 1;
         var size = x2 - x1;
         var height = parseFloat(this.options.height);
 
         ctx.strokeStyle = this.options.strokeStyle;
         ctx.fillStyle = this.options.fillStyle;
         ctx.beginPath();
-        ctx.moveTo(x1 + size/4, y2);
-        ctx.lineTo(x1 + size/2, y2 + height);
-        ctx.lineTo(x2 - size/4, y2);
+        ctx.moveTo(x1 + size / 4, y2);
+        ctx.lineTo(x1 + size / 2, y2 + height);
+        ctx.lineTo(x2 - size / 4, y2);
         ctx.closePath();
         ctx.fill();
         ctx.stroke();
@@ -222,7 +222,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         this.options = $.extend({ fillStyle: '#555', fontsize: 12 }, options);
         return this;
     }
-    NON.prototype.render = function(ctx) {
+    NON.prototype.render = function (ctx) {
         var x = parseFloat(this.vertices[0].x);
         var y = parseFloat(this.vertices[0].y);
         var fontsize = parseInt(this.options.fontsize);
@@ -240,7 +240,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         this.options = $.extend({ fillStyle: '#555', fontsize: 12 }, options);
         return this;
     }
-    UNE.prototype.render = function(ctx) {
+    UNE.prototype.render = function (ctx) {
         var x = parseFloat(this.vertices[0].x);
         var y = parseFloat(this.vertices[0].y);
         var fontsize = parseInt(this.options.fontsize);
@@ -258,7 +258,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         this.options = $.extend({ fillStyle: '#555', fontsize: 12 }, options);
         return this;
     }
-    PRE.prototype.render = function(ctx) {
+    PRE.prototype.render = function (ctx) {
         var x = parseFloat(this.vertices[0].x);
         var y = parseFloat(this.vertices[0].y);
         var fontsize = parseInt(this.options.fontsize);
@@ -276,7 +276,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         this.options = $.extend({ fillStyle: '#555', fontsize: 12 }, options);
         return this;
     }
-    ANO.prototype.render = function(ctx) {
+    ANO.prototype.render = function (ctx) {
         var x = parseFloat(this.vertices[0].x);
         var y = parseFloat(this.vertices[0].y);
         var fontsize = parseInt(this.options.fontsize);
@@ -294,7 +294,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         this.options = $.extend({ strokeStyle: '#333' }, options);
         return this;
     }
-    CARIES.prototype.render = function(ctx) {
+    CARIES.prototype.render = function (ctx) {
         ctx.strokeStyle = this.options.strokeStyle;
         ctx.lineWidth = 4;
         ctx.beginPath();
@@ -318,10 +318,10 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
     function CFR(vertices, options) {
         this.name = 'CFR';
         this.vertices = vertices;
-        this.options = $.extend({ fillStyle: '#555'}, options);
+        this.options = $.extend({ fillStyle: '#555' }, options);
         return this;
     }
-    CFR.prototype.render = function(ctx) {
+    CFR.prototype.render = function (ctx) {
         var x1 = parseFloat(this.vertices[0].x);
         var y1 = parseFloat(this.vertices[0].y);
         var x2 = parseFloat(this.vertices[1].x);
@@ -329,8 +329,8 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         var boxSize = x2 - x1;
         var fontsize = parseInt(boxSize);
 
-        var x = x1 + boxSize/2;
-        var y = y1 + boxSize/2;
+        var x = x1 + boxSize / 2;
+        var y = y1 + boxSize / 2;
 
         ctx.fillStyle = '#000';
         ctx.font = "bold " + fontsize + "px Algerian";
@@ -345,7 +345,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         this.options = $.extend({ strokeStyle: '#333' }, options);
         return this;
     }
-    FMC.prototype.render = function(ctx) {
+    FMC.prototype.render = function (ctx) {
         var x1 = parseFloat(this.vertices[0].x) + 1;
         var y1 = parseFloat(this.vertices[0].y) + 1;
         var x2 = parseFloat(this.vertices[1].x) + 1;
@@ -354,7 +354,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
             { x: x1, y: y1 },
             { x: x2, y: y1 },
             { x: x2, y: y2 },
-            { x: x1, y: y2}
+            { x: x1, y: y2 }
         ];
 
         ctx.strokeStyle = this.options.strokeStyle;
@@ -382,7 +382,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         this.options = $.extend({ strokeStyle: '#333' }, options);
         return this;
     }
-    POC.prototype.render = function(ctx) {
+    POC.prototype.render = function (ctx) {
         var x1 = parseFloat(this.vertices[0].x) + 1;
         var y1 = parseFloat(this.vertices[0].y) + 1;
         var x2 = parseFloat(this.vertices[1].x) + 1;
@@ -391,7 +391,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
             { x: x1, y: y1 },
             { x: x2, y: y1 },
             { x: x2, y: y2 },
-            { x: x1, y: y2}
+            { x: x1, y: y2 }
         ];
 
         ctx.strokeStyle = this.options.strokeStyle;
@@ -414,7 +414,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
 
         // Draw Lines
         ctx.lineWidth = 1;
-        for (var xpos = x1; xpos < x2; xpos+=((x2-x1)/15)) {
+        for (var xpos = x1; xpos < x2; xpos += ((x2 - x1) / 15)) {
             xpos = Math.min(xpos, x2);
 
             ctx.beginPath();
@@ -430,21 +430,21 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         this.options = $.extend({ strokeStyle: '#333' }, options);
         return this;
     }
-    RRX.prototype.render = function(ctx) {
+    RRX.prototype.render = function (ctx) {
         var x1 = parseFloat(this.vertices[0].x) + 1;
         var y1 = parseFloat(this.vertices[0].y) + 1;
         var x2 = parseFloat(this.vertices[1].x) + 1;
         var y2 = parseFloat(this.vertices[1].y) + 1;
         var bigBoxSize = x2 - x1;
-        var smallBoxSize = bigBoxSize/2;
+        var smallBoxSize = bigBoxSize / 2;
         var lines = [
-            { 
-                x1: x1 + smallBoxSize/3, y1: y1 - smallBoxSize/2,
-                x2: x1 + smallBoxSize, y2: y2 + smallBoxSize/2 
+            {
+                x1: x1 + smallBoxSize / 3, y1: y1 - smallBoxSize / 2,
+                x2: x1 + smallBoxSize, y2: y2 + smallBoxSize / 2
             },
             {
-                x1: x1 + smallBoxSize, y1: y2 + smallBoxSize/2,
-                x2: x1 + smallBoxSize*2, y2: y1 - smallBoxSize 
+                x1: x1 + smallBoxSize, y1: y2 + smallBoxSize / 2,
+                x2: x1 + smallBoxSize * 2, y2: y1 - smallBoxSize
             }
         ];
 
@@ -466,21 +466,21 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         this.options = $.extend({ strokeStyle: '#333' }, options);
         return this;
     }
-    MIS.prototype.render = function(ctx) {
+    MIS.prototype.render = function (ctx) {
         var x1 = parseFloat(this.vertices[0].x) + 1;
         var y1 = parseFloat(this.vertices[0].y) + 1;
         var x2 = parseFloat(this.vertices[1].x) + 1;
         var y2 = parseFloat(this.vertices[1].y) + 1;
         var bigBoxSize = x2 - x1;
-        var smallBoxSize = bigBoxSize/2;
+        var smallBoxSize = bigBoxSize / 2;
         var lines = [
-            { 
-                x1: x1 + smallBoxSize*.5, y1: y1 - smallBoxSize/2,
-                x2: x1 + smallBoxSize*1.5, y2: y2 + smallBoxSize/2 
+            {
+                x1: x1 + smallBoxSize * .5, y1: y1 - smallBoxSize / 2,
+                x2: x1 + smallBoxSize * 1.5, y2: y2 + smallBoxSize / 2
             },
             {
-                x1: x1 + smallBoxSize*1.5, y1: y1 - smallBoxSize/2,
-                x2: x1 + smallBoxSize*.5, y2: y2 + smallBoxSize/2
+                x1: x1 + smallBoxSize * 1.5, y1: y1 - smallBoxSize / 2,
+                x2: x1 + smallBoxSize * .5, y2: y2 + smallBoxSize / 2
             }
         ];
 
@@ -502,7 +502,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         this.options = $.extend({ fillStyle: '#555', fontsize: 12 }, options);
         return this;
     }
-    IPX.prototype.render = function(ctx) {
+    IPX.prototype.render = function (ctx) {
         var x = parseFloat(this.vertices[0].x);
         var y = parseFloat(this.vertices[1].y);
         var fontsize = parseInt(this.options.fontsize);
@@ -520,7 +520,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         this.options = $.extend({ fillStyle: '#555', fontsize: 12 }, options);
         return this;
     }
-    FRM_ACR.prototype.render = function(ctx) {
+    FRM_ACR.prototype.render = function (ctx) {
         var x = parseFloat(this.vertices[0].x) + (parseFloat(this.vertices[1].x) - parseFloat(this.vertices[0].x)) / 2;
         var y = parseFloat(this.vertices[1].y) + (parseFloat(this.vertices[1].x) - parseFloat(this.vertices[0].x)) / 2 - (parseFloat(this.vertices[1].x) - parseFloat(this.vertices[0].x)) / 8;
         var fontsize = parseInt(this.options.fontsize);
@@ -539,7 +539,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         this.options = $.extend({ strokeStyle: '#555' }, options);
         return this;
     }
-    BRIDGE.prototype.render = function(ctx) {
+    BRIDGE.prototype.render = function (ctx) {
         var vert0, vert1;
         if (this.startVert) {
             vert0 = {
@@ -549,8 +549,8 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
                 y2: parseFloat(this.startVert[1].y),
             };
             vert0.size = vert0.x2 - vert0.x1;
-            vert0.cx = vert0.x2 - vert0.size/2;
-            vert0.cy = vert0.y2 - vert0.size/2;
+            vert0.cx = vert0.x2 - vert0.size / 2;
+            vert0.cy = vert0.y2 - vert0.size / 2;
         }
 
         if (this.endVert) {
@@ -561,8 +561,8 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
                 y2: parseFloat(this.endVert[1].y)
             };
             vert1.size = vert1.x2 - vert1.x1;
-            vert1.cx = vert1.x2 - vert1.size/2;
-            vert1.cy = vert1.y2 - vert1.size/2;
+            vert1.cx = vert1.x2 - vert1.size / 2;
+            vert1.cy = vert1.y2 - vert1.size / 2;
         }
 
         // Draw Bridge in vert0 |
@@ -571,7 +571,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
             ctx.lineWidth = 6;
             ctx.beginPath();
             ctx.moveTo(vert0.cx, vert0.y1);
-            ctx.lineTo(vert0.cx, vert0.y1 - vert0.size/4);
+            ctx.lineTo(vert0.cx, vert0.y1 - vert0.size / 4);
             ctx.stroke();
         }
 
@@ -581,7 +581,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
             ctx.lineWidth = 6;
             ctx.beginPath();
             ctx.moveTo(vert1.cx, vert1.y1);
-            ctx.lineTo(vert1.cx, vert1.y1 - vert1.size/4);
+            ctx.lineTo(vert1.cx, vert1.y1 - vert1.size / 4);
             ctx.stroke();
         }
 
@@ -591,8 +591,8 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
             ctx.strokeStyle = this.options.strokeStyle;
             ctx.lineWidth = 6;
             ctx.beginPath();
-            ctx.moveTo(vert0.cx - 3*lor, vert0.y1 - vert0.size/4);
-            ctx.lineTo(vert1.cx + 3*lor, vert1.y1 - vert1.size/4);
+            ctx.moveTo(vert0.cx - 3 * lor, vert0.y1 - vert0.size / 4);
+            ctx.lineTo(vert1.cx + 3 * lor, vert1.y1 - vert1.size / 4);
             ctx.stroke();
         }
     }
@@ -603,7 +603,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         this.options = $.extend({ fillStyle: 'rgba(200, 200, 200, 0.8)' }, options);
         return this;
     }
-    HAPUS.prototype.render = function(ctx) {
+    HAPUS.prototype.render = function (ctx) {
         var x1 = parseFloat(this.vertices[0].x) + 1;
         var y1 = parseFloat(this.vertices[0].y) + 1;
         var x2 = parseFloat(this.vertices[1].x) + 1;
@@ -611,10 +611,10 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         var x = x1;
         var y = y1;
         var size = x2 - x1;
-        
+
         ctx.beginPath();
         ctx.fillStyle = this.options.fillStyle;
-        ctx.rect(x, y, size, size); 
+        ctx.rect(x, y, size, size);
         ctx.fill();
     }
     // ARROWS
@@ -622,17 +622,17 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
     function ARROW_TOP_LEFT(vertices, options) {
         this.name = 'ARROW_TOP_LEFT';
         this.vertices = vertices;
-        this.options = $.extend({ }, options);
+        this.options = $.extend({}, options);
         return this;
     }
-    ARROW_TOP_LEFT.prototype.render = function(ctx) {
+    ARROW_TOP_LEFT.prototype.render = function (ctx) {
         var x1 = parseFloat(this.vertices[0].x);
         var y1 = parseFloat(this.vertices[0].y);
         var x2 = parseFloat(this.vertices[1].x);
         var y2 = parseFloat(this.vertices[1].y);
 
         var fromx, fromy, tox, toy;
-        fromx = x2 - (x2 - x1)/4;
+        fromx = x2 - (x2 - x1) / 4;
         fromy = y1 - 10;
         tox = fromx - 25;
         toy = fromy;
@@ -645,7 +645,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         var headlen = 10;
         var lineWidth = 2;
 
-        var angle = Math.atan2(toy-fromy,tox-fromx);
+        var angle = Math.atan2(toy - fromy, tox - fromx);
 
         ctx.beginPath();
         ctx.moveTo(fromx, fromy);
@@ -657,14 +657,14 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         //starting a new path from the head of the arrow to one of the sides of the point
         ctx.beginPath();
         ctx.moveTo(tox, toy);
-        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+        ctx.lineTo(tox - headlen * Math.cos(angle - Math.PI / 7), toy - headlen * Math.sin(angle - Math.PI / 7));
 
         //path from the side point of the arrow, to the other side point
-        ctx.lineTo(tox-headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle+Math.PI/7));
+        ctx.lineTo(tox - headlen * Math.cos(angle + Math.PI / 7), toy - headlen * Math.sin(angle + Math.PI / 7));
 
         //path from the side point back to the tip of the arrow, and then again to the opposite side point
         ctx.lineTo(tox, toy);
-        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+        ctx.lineTo(tox - headlen * Math.cos(angle - Math.PI / 7), toy - headlen * Math.sin(angle - Math.PI / 7));
 
         //draws the paths created above
         ctx.strokeStyle = "#000000";
@@ -678,17 +678,17 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
     function ARROW_TOP_RIGHT(vertices, options) {
         this.name = 'ARROW_TOP_RIGHT';
         this.vertices = vertices;
-        this.options = $.extend({ }, options);
+        this.options = $.extend({}, options);
         return this;
     }
-    ARROW_TOP_RIGHT.prototype.render = function(ctx) {
+    ARROW_TOP_RIGHT.prototype.render = function (ctx) {
         var x1 = parseFloat(this.vertices[0].x);
         var y1 = parseFloat(this.vertices[0].y);
         var x2 = parseFloat(this.vertices[1].x);
         var y2 = parseFloat(this.vertices[1].y);
 
         var fromx, fromy, tox, toy;
-        fromx = x1 + (x2 - x1)/4;
+        fromx = x1 + (x2 - x1) / 4;
         fromy = y1 - 10;
         tox = fromx + 25;
         toy = fromy;
@@ -701,7 +701,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         var headlen = 10;
         var lineWidth = 2;
 
-        var angle = Math.atan2(toy-fromy,tox-fromx);
+        var angle = Math.atan2(toy - fromy, tox - fromx);
 
         ctx.beginPath();
         ctx.moveTo(fromx, fromy);
@@ -713,14 +713,14 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         //starting a new path from the head of the arrow to one of the sides of the point
         ctx.beginPath();
         ctx.moveTo(tox, toy);
-        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+        ctx.lineTo(tox - headlen * Math.cos(angle - Math.PI / 7), toy - headlen * Math.sin(angle - Math.PI / 7));
 
         //path from the side point of the arrow, to the other side point
-        ctx.lineTo(tox-headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle+Math.PI/7));
+        ctx.lineTo(tox - headlen * Math.cos(angle + Math.PI / 7), toy - headlen * Math.sin(angle + Math.PI / 7));
 
         //path from the side point back to the tip of the arrow, and then again to the opposite side point
         ctx.lineTo(tox, toy);
-        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+        ctx.lineTo(tox - headlen * Math.cos(angle - Math.PI / 7), toy - headlen * Math.sin(angle - Math.PI / 7));
 
         //draws the paths created above
         ctx.strokeStyle = "#000000";
@@ -734,17 +734,17 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
     function ARROW_TOP_TURN_LEFT(vertices, options) {
         this.name = 'ARROW_TOP_TURN_LEFT';
         this.vertices = vertices;
-        this.options = $.extend({ }, options);
+        this.options = $.extend({}, options);
         return this;
     }
-    ARROW_TOP_TURN_LEFT.prototype.render = function(ctx) {
+    ARROW_TOP_TURN_LEFT.prototype.render = function (ctx) {
         var x1 = parseFloat(this.vertices[0].x);
         var y1 = parseFloat(this.vertices[0].y);
         var x2 = parseFloat(this.vertices[1].x);
         var y2 = parseFloat(this.vertices[1].y);
 
         var fromx, fromy, tox, toy;
-        fromx = x1 + (x2 - x1)/4;
+        fromx = x1 + (x2 - x1) / 4;
         fromy = y1 - 10;
         tox = fromx + 10;
         toy = fromy;
@@ -762,24 +762,24 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         ctx.lineWidth = lineWidth;
 
         ctx.beginPath();
-        ctx.arc(tox, fromy, 5, 1.5*Math.PI, 0.5*Math.PI);
+        ctx.arc(tox, fromy, 5, 1.5 * Math.PI, 0.5 * Math.PI);
         ctx.stroke();
 
         ctx.beginPath();
-        ctx.moveTo(tox, fromy-5);
-        ctx.lineTo(fromx, fromy-5);
+        ctx.moveTo(tox, fromy - 5);
+        ctx.lineTo(fromx, fromy - 5);
         ctx.stroke();
 
-        var angle = Math.atan2(toy-fromy,tox-fromx);
+        var angle = Math.atan2(toy - fromy, tox - fromx);
 
-        toy = toy-5;
-        fromx = fromx-5;
+        toy = toy - 5;
+        fromx = fromx - 5;
         ctx.beginPath();
         ctx.moveTo(fromx, toy);
-        ctx.lineTo(fromx+headlen*Math.cos(angle+Math.PI/7),toy+headlen*Math.sin(angle+Math.PI/7));
-        ctx.lineTo(fromx+headlen*Math.cos(angle-Math.PI/7),toy+headlen*Math.sin(angle-Math.PI/7));
+        ctx.lineTo(fromx + headlen * Math.cos(angle + Math.PI / 7), toy + headlen * Math.sin(angle + Math.PI / 7));
+        ctx.lineTo(fromx + headlen * Math.cos(angle - Math.PI / 7), toy + headlen * Math.sin(angle - Math.PI / 7));
         ctx.lineTo(fromx, toy);
-        ctx.lineTo(fromx+headlen*Math.cos(angle+Math.PI/7),toy+headlen*Math.sin(angle-Math.PI/7));
+        ctx.lineTo(fromx + headlen * Math.cos(angle + Math.PI / 7), toy + headlen * Math.sin(angle - Math.PI / 7));
         ctx.stroke();
         ctx.fill();
     }
@@ -788,17 +788,17 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
     function ARROW_TOP_TURN_RIGHT(vertices, options) {
         this.name = 'ARROW_TOP_TURN_RIGHT';
         this.vertices = vertices;
-        this.options = $.extend({ }, options);
+        this.options = $.extend({}, options);
         return this;
     }
-    ARROW_TOP_TURN_RIGHT.prototype.render = function(ctx) {
+    ARROW_TOP_TURN_RIGHT.prototype.render = function (ctx) {
         var x1 = parseFloat(this.vertices[0].x);
         var y1 = parseFloat(this.vertices[0].y);
         var x2 = parseFloat(this.vertices[1].x);
         var y2 = parseFloat(this.vertices[1].y);
 
         var fromx, fromy, tox, toy;
-        fromx = x2 - (x2 - x1)/2;
+        fromx = x2 - (x2 - x1) / 2;
         fromy = y1 - 10;
         tox = fromx + 10;
         toy = fromy;
@@ -811,24 +811,24 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         ctx.lineWidth = lineWidth;
 
         ctx.beginPath();
-        ctx.arc(fromx, fromy, 5, 0.38*Math.PI, 1.5*Math.PI);
+        ctx.arc(fromx, fromy, 5, 0.38 * Math.PI, 1.5 * Math.PI);
         ctx.stroke();
 
         ctx.beginPath();
-        ctx.moveTo(fromx, fromy-5);
-        ctx.lineTo(tox, fromy-5);
+        ctx.moveTo(fromx, fromy - 5);
+        ctx.lineTo(tox, fromy - 5);
         ctx.stroke();
 
-        var angle = Math.atan2(toy-fromy,tox-fromx);
+        var angle = Math.atan2(toy - fromy, tox - fromx);
 
-        toy = toy-5;
-        tox = tox+5;
+        toy = toy - 5;
+        tox = tox + 5;
         ctx.beginPath();
         ctx.moveTo(tox, toy);
-        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
-        ctx.lineTo(tox-headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle+Math.PI/7));
+        ctx.lineTo(tox - headlen * Math.cos(angle - Math.PI / 7), toy - headlen * Math.sin(angle - Math.PI / 7));
+        ctx.lineTo(tox - headlen * Math.cos(angle + Math.PI / 7), toy - headlen * Math.sin(angle + Math.PI / 7));
         ctx.lineTo(tox, toy);
-        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+        ctx.lineTo(tox - headlen * Math.cos(angle - Math.PI / 7), toy - headlen * Math.sin(angle - Math.PI / 7));
         ctx.stroke();
         ctx.fill();
     }
@@ -837,17 +837,17 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
     function ARROW_BOTTOM_LEFT(vertices, options) {
         this.name = 'ARROW_BOTTOM_LEFT';
         this.vertices = vertices;
-        this.options = $.extend({ }, options);
+        this.options = $.extend({}, options);
         return this;
     }
-    ARROW_BOTTOM_LEFT.prototype.render = function(ctx) {
+    ARROW_BOTTOM_LEFT.prototype.render = function (ctx) {
         var x1 = parseFloat(this.vertices[0].x);
         var y1 = parseFloat(this.vertices[0].y);
         var x2 = parseFloat(this.vertices[1].x);
         var y2 = parseFloat(this.vertices[1].y);
 
         var fromx, fromy, tox, toy;
-        fromx = x2 - (x2 - x1)/4;
+        fromx = x2 - (x2 - x1) / 4;
         fromy = y2 + 10;
         tox = fromx - 25;
         toy = fromy;
@@ -860,7 +860,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         var headlen = 10;
         var lineWidth = 2;
 
-        var angle = Math.atan2(toy-fromy,tox-fromx);
+        var angle = Math.atan2(toy - fromy, tox - fromx);
 
         ctx.beginPath();
         ctx.moveTo(fromx, fromy);
@@ -872,14 +872,14 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         //starting a new path from the head of the arrow to one of the sides of the point
         ctx.beginPath();
         ctx.moveTo(tox, toy);
-        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+        ctx.lineTo(tox - headlen * Math.cos(angle - Math.PI / 7), toy - headlen * Math.sin(angle - Math.PI / 7));
 
         //path from the side point of the arrow, to the other side point
-        ctx.lineTo(tox-headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle+Math.PI/7));
+        ctx.lineTo(tox - headlen * Math.cos(angle + Math.PI / 7), toy - headlen * Math.sin(angle + Math.PI / 7));
 
         //path from the side point back to the tip of the arrow, and then again to the opposite side point
         ctx.lineTo(tox, toy);
-        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+        ctx.lineTo(tox - headlen * Math.cos(angle - Math.PI / 7), toy - headlen * Math.sin(angle - Math.PI / 7));
 
         //draws the paths created above
         ctx.strokeStyle = "#000000";
@@ -893,17 +893,17 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
     function ARROW_BOTTOM_RIGHT(vertices, options) {
         this.name = 'ARROW_BOTTOM_RIGHT';
         this.vertices = vertices;
-        this.options = $.extend({ }, options);
+        this.options = $.extend({}, options);
         return this;
     }
-    ARROW_BOTTOM_RIGHT.prototype.render = function(ctx) {
+    ARROW_BOTTOM_RIGHT.prototype.render = function (ctx) {
         var x1 = parseFloat(this.vertices[0].x);
         var y1 = parseFloat(this.vertices[0].y);
         var x2 = parseFloat(this.vertices[1].x);
         var y2 = parseFloat(this.vertices[1].y);
 
         var fromx, fromy, tox, toy;
-        fromx = x1 + (x2 - x1)/4;
+        fromx = x1 + (x2 - x1) / 4;
         fromy = y2 + 10;
         tox = fromx + 25;
         toy = fromy;
@@ -916,7 +916,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         var headlen = 10;
         var lineWidth = 2;
 
-        var angle = Math.atan2(toy-fromy,tox-fromx);
+        var angle = Math.atan2(toy - fromy, tox - fromx);
 
         ctx.beginPath();
         ctx.moveTo(fromx, fromy);
@@ -928,14 +928,14 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         //starting a new path from the head of the arrow to one of the sides of the point
         ctx.beginPath();
         ctx.moveTo(tox, toy);
-        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+        ctx.lineTo(tox - headlen * Math.cos(angle - Math.PI / 7), toy - headlen * Math.sin(angle - Math.PI / 7));
 
         //path from the side point of the arrow, to the other side point
-        ctx.lineTo(tox-headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle+Math.PI/7));
+        ctx.lineTo(tox - headlen * Math.cos(angle + Math.PI / 7), toy - headlen * Math.sin(angle + Math.PI / 7));
 
         //path from the side point back to the tip of the arrow, and then again to the opposite side point
         ctx.lineTo(tox, toy);
-        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+        ctx.lineTo(tox - headlen * Math.cos(angle - Math.PI / 7), toy - headlen * Math.sin(angle - Math.PI / 7));
 
         //draws the paths created above
         ctx.strokeStyle = "#000000";
@@ -949,17 +949,17 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
     function ARROW_BOTTOM_TURN_LEFT(vertices, options) {
         this.name = 'ARROW_BOTTOM_TURN_LEFT';
         this.vertices = vertices;
-        this.options = $.extend({ }, options);
+        this.options = $.extend({}, options);
         return this;
     }
-    ARROW_BOTTOM_TURN_LEFT.prototype.render = function(ctx) {
+    ARROW_BOTTOM_TURN_LEFT.prototype.render = function (ctx) {
         var x1 = parseFloat(this.vertices[0].x);
         var y1 = parseFloat(this.vertices[0].y);
         var x2 = parseFloat(this.vertices[1].x);
         var y2 = parseFloat(this.vertices[1].y);
 
         var fromx, fromy, tox, toy;
-        fromx = x2 - (x2 - x1)/2;
+        fromx = x2 - (x2 - x1) / 2;
         fromy = y2 + 10;
         tox = fromx - 10;
         toy = fromy + 5;
@@ -972,7 +972,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         ctx.lineWidth = lineWidth;
 
         ctx.beginPath();
-        ctx.arc(fromx, fromy, 5, 1.5*Math.PI, 0.5*Math.PI);
+        ctx.arc(fromx, fromy, 5, 1.5 * Math.PI, 0.5 * Math.PI);
         ctx.stroke();
 
         ctx.beginPath();
@@ -980,16 +980,16 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         ctx.lineTo(fromx, toy);
         ctx.stroke();
 
-        var angle = Math.atan2(toy-fromy,tox);
+        var angle = Math.atan2(toy - fromy, tox);
 
         toy = toy;
         tox = tox - 5;
         ctx.beginPath();
         ctx.moveTo(tox, toy);
-        ctx.lineTo(tox+headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle+Math.PI/7));
-        ctx.lineTo(tox+headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+        ctx.lineTo(tox + headlen * Math.cos(angle + Math.PI / 7), toy - headlen * Math.sin(angle + Math.PI / 7));
+        ctx.lineTo(tox + headlen * Math.cos(angle + Math.PI / 7), toy - headlen * Math.sin(angle - Math.PI / 7));
         ctx.lineTo(tox, toy);
-        ctx.lineTo(tox+headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle+Math.PI/7));
+        ctx.lineTo(tox + headlen * Math.cos(angle + Math.PI / 7), toy - headlen * Math.sin(angle + Math.PI / 7));
         ctx.stroke();
         ctx.fill();
     }
@@ -998,17 +998,17 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
     function ARROW_BOTTOM_TURN_RIGHT(vertices, options) {
         this.name = 'ARROW_BOTTOM_TURN_RIGHT';
         this.vertices = vertices;
-        this.options = $.extend({ }, options);
+        this.options = $.extend({}, options);
         return this;
     }
-    ARROW_BOTTOM_TURN_RIGHT.prototype.render = function(ctx) {
+    ARROW_BOTTOM_TURN_RIGHT.prototype.render = function (ctx) {
         var x1 = parseFloat(this.vertices[0].x);
         var y1 = parseFloat(this.vertices[0].y);
         var x2 = parseFloat(this.vertices[1].x);
         var y2 = parseFloat(this.vertices[1].y);
 
         var fromx, fromy, tox, toy;
-        fromx = x2 - (x2 - x1)/2;
+        fromx = x2 - (x2 - x1) / 2;
         fromy = y2 + 10;
         tox = fromx + 10;
         toy = fromy + 5;
@@ -1021,7 +1021,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         ctx.lineWidth = lineWidth;
 
         ctx.beginPath();
-        ctx.arc(fromx, fromy, 5, 0.38*Math.PI, 1.5*Math.PI);
+        ctx.arc(fromx, fromy, 5, 0.38 * Math.PI, 1.5 * Math.PI);
         ctx.stroke();
 
         ctx.beginPath();
@@ -1029,16 +1029,16 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         ctx.lineTo(tox, toy);
         ctx.stroke();
 
-        var angle = Math.atan2(toy-fromy,tox);
+        var angle = Math.atan2(toy - fromy, tox);
 
         toy = toy;
         tox = tox + 5;
         ctx.beginPath();
         ctx.moveTo(tox, toy);
-        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
-        ctx.lineTo(tox-headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle+Math.PI/7));
+        ctx.lineTo(tox - headlen * Math.cos(angle - Math.PI / 7), toy - headlen * Math.sin(angle - Math.PI / 7));
+        ctx.lineTo(tox - headlen * Math.cos(angle + Math.PI / 7), toy - headlen * Math.sin(angle + Math.PI / 7));
         ctx.lineTo(tox, toy);
-        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+        ctx.lineTo(tox - headlen * Math.cos(angle - Math.PI / 7), toy - headlen * Math.sin(angle - Math.PI / 7));
         ctx.stroke();
         ctx.fill();
     }
@@ -1061,13 +1061,13 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         return this;
     }
 
-    Odontogram.prototype.setMode = function(mode) {
+    Odontogram.prototype.setMode = function (mode) {
         this.mode = mode;
 
         return this;
     };
 
-    Odontogram.prototype._drawBackground = function() {
+    Odontogram.prototype._drawBackground = function () {
         var canvas = this.canvas;
         var ctx = this.context;
 
@@ -1088,10 +1088,10 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
 
         // Numbers
         var numbers = [
-            '18', '17', '16', '15', '14', '13', '12', '11',     '21', '22', '23', '24', '25', '26', '27', '28',
-                              '55', '54', '53', '52', '51',     '61', '62', '63', '64', '65',
-                              '85', '84', '83', '82', '81',     '71', '72', '73', '74', '75',
-            '48', '47', '46', '45', '44', '43', '42', '41',     '31', '32', '33', '34', '35', '36', '37', '38'
+            '18', '17', '16', '15', '14', '13', '12', '11', '21', '22', '23', '24', '25', '26', '27', '28',
+            '55', '54', '53', '52', '51', '61', '62', '63', '64', '65',
+            '85', '84', '83', '82', '81', '71', '72', '73', '74', '75',
+            '48', '47', '46', '45', '44', '43', '42', '41', '31', '32', '33', '34', '35', '36', '37', '38'
         ];
 
         var xpos, ypos;
@@ -1105,46 +1105,46 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
                 if (x % 8 == 0 && x != 0) sec++;
                 // else sec = 0;
 
-                if ((y % 3 != 0) && 
-                    (x < 8 ? (x % 8) - 2 <= 0 : (x % 8) >= 5) ) continue;
+                if ((y % 3 != 0) &&
+                    (x < 8 ? (x % 8) - 2 <= 0 : (x % 8) >= 5)) continue;
 
                 xpos = x * bigBoxSize + (pl) + x * gap_per + (sec * gap_bag);
                 ypos = y * bigBoxSize + pt + (pt * y);
 
                 // Big Box
                 ctx.beginPath();
-                ctx.lineWidth="2";
-                ctx.strokeStyle="#555";
-                ctx.rect(xpos, ypos, bigBoxSize, bigBoxSize); 
+                ctx.lineWidth = "2";
+                ctx.strokeStyle = "#555";
+                ctx.rect(xpos, ypos, bigBoxSize, bigBoxSize);
                 ctx.stroke();
 
                 // Small Box
                 ctx.beginPath();
-                ctx.lineWidth="2";
-                ctx.strokeStyle="#555";
-                ctx.rect(xpos + smallBoxSize/2, ypos + smallBoxSize/2, smallBoxSize, smallBoxSize); 
+                ctx.lineWidth = "2";
+                ctx.strokeStyle = "#555";
+                ctx.rect(xpos + smallBoxSize / 2, ypos + smallBoxSize / 2, smallBoxSize, smallBoxSize);
                 ctx.stroke();
 
                 // Lines
                 //// Top Left
                 ctx.beginPath();
                 ctx.moveTo(xpos, ypos);
-                ctx.lineTo(xpos + smallBoxSize/2, ypos + smallBoxSize/2);
+                ctx.lineTo(xpos + smallBoxSize / 2, ypos + smallBoxSize / 2);
                 ctx.stroke();
                 //// Top Right
                 ctx.beginPath();
                 ctx.moveTo(xpos + bigBoxSize, ypos);
-                ctx.lineTo(xpos + bigBoxSize - smallBoxSize/2, ypos + smallBoxSize/2);
+                ctx.lineTo(xpos + bigBoxSize - smallBoxSize / 2, ypos + smallBoxSize / 2);
                 ctx.stroke();
                 //// Bottom Left
                 ctx.beginPath();
                 ctx.moveTo(xpos, ypos + bigBoxSize);
-                ctx.lineTo(xpos + smallBoxSize/2, ypos + bigBoxSize - smallBoxSize/2);
+                ctx.lineTo(xpos + smallBoxSize / 2, ypos + bigBoxSize - smallBoxSize / 2);
                 ctx.stroke();
                 //// Bottom Right
                 ctx.beginPath();
                 ctx.moveTo(xpos + bigBoxSize, ypos + bigBoxSize);
-                ctx.lineTo(xpos + bigBoxSize - smallBoxSize/2, ypos + bigBoxSize - smallBoxSize/2);
+                ctx.lineTo(xpos + bigBoxSize - smallBoxSize / 2, ypos + bigBoxSize - smallBoxSize / 2);
                 ctx.stroke();
 
                 // Numbers
@@ -1154,11 +1154,12 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
                 ctx.textAlign = "center";
                 ctx.fillText(num, xpos + bigBoxSize / 2, ypos + bigBoxSize * 1.4);
 
-                x1 = xpos;y1 = ypos;
-                x2 = xpos + bigBoxSize;y2 = ypos + bigBoxSize;
-                cx = xpos + bigBoxSize/2;cy = ypos + bigBoxSize/2;
+                x1 = xpos; y1 = ypos;
+                x2 = xpos + bigBoxSize; y2 = ypos + bigBoxSize;
+                cx = xpos + bigBoxSize / 2; cy = ypos + bigBoxSize / 2;
                 key = x1 + ':' + y1 + ';' + x2 + ':' + y2 + ';' + cx + ':' + cy;
                 this.teeth[key] = {
+                    num: num,
                     bigBoxSize: bigBoxSize,
                     smallBoxSize: smallBoxSize,
                     x1: x1,
@@ -1168,35 +1169,35 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
                     cx: cx,
                     cy: cy,
                     // Coords shapes (top left, top right, bottom left, bottom right)
-                    top: { 
-                        tl: { x: xpos, y: ypos }, 
-                        tr: { x: xpos + bigBoxSize, y: ypos }, 
-                        br: { x: xpos + bigBoxSize - smallBoxSize/2, y: ypos + smallBoxSize/2 },
-                        bl: { x: xpos + smallBoxSize/2, y: ypos + smallBoxSize/2 }
-                    }, 
+                    top: {
+                        tl: { x: xpos, y: ypos },
+                        tr: { x: xpos + bigBoxSize, y: ypos },
+                        br: { x: xpos + bigBoxSize - smallBoxSize / 2, y: ypos + smallBoxSize / 2 },
+                        bl: { x: xpos + smallBoxSize / 2, y: ypos + smallBoxSize / 2 }
+                    },
                     right: {
-                        tl: { x: xpos + bigBoxSize - smallBoxSize/2, y: ypos + smallBoxSize/2 },
+                        tl: { x: xpos + bigBoxSize - smallBoxSize / 2, y: ypos + smallBoxSize / 2 },
                         tr: { x: xpos + bigBoxSize, y: ypos },
                         br: { x: xpos + bigBoxSize, y: ypos + bigBoxSize },
-                        bl: { x: xpos + bigBoxSize - smallBoxSize/2, y: ypos + bigBoxSize - smallBoxSize/2 }
+                        bl: { x: xpos + bigBoxSize - smallBoxSize / 2, y: ypos + bigBoxSize - smallBoxSize / 2 }
                     },
                     bottom: {
-                        tl: { x: xpos + smallBoxSize/2, y: ypos + bigBoxSize - smallBoxSize/2 },
-                        tr: { x: xpos + bigBoxSize - smallBoxSize/2, y: ypos + bigBoxSize - smallBoxSize/2 },
+                        tl: { x: xpos + smallBoxSize / 2, y: ypos + bigBoxSize - smallBoxSize / 2 },
+                        tr: { x: xpos + bigBoxSize - smallBoxSize / 2, y: ypos + bigBoxSize - smallBoxSize / 2 },
                         br: { x: xpos + bigBoxSize, y: ypos + bigBoxSize },
                         bl: { x: xpos, y: ypos + bigBoxSize }
                     },
                     left: {
                         tl: { x: xpos, y: ypos },
-                        tr: { x: xpos + smallBoxSize/2, y: ypos + smallBoxSize/2 },
-                        br: { x: xpos + smallBoxSize/2, y: ypos + bigBoxSize - smallBoxSize/2 },
+                        tr: { x: xpos + smallBoxSize / 2, y: ypos + smallBoxSize / 2 },
+                        br: { x: xpos + smallBoxSize / 2, y: ypos + bigBoxSize - smallBoxSize / 2 },
                         bl: { x: xpos, y: ypos + bigBoxSize }
                     },
                     middle: {
-                        tl: { x: xpos + smallBoxSize/2, y: ypos + smallBoxSize/2 },
-                        tr: { x: xpos + bigBoxSize - smallBoxSize/2, y: ypos + smallBoxSize/2 },
-                        br: { x: xpos + bigBoxSize - smallBoxSize/2, y: ypos + bigBoxSize - smallBoxSize/2 },
-                        bl: { x: xpos + smallBoxSize/2, y: ypos + bigBoxSize - smallBoxSize/2 }
+                        tl: { x: xpos + smallBoxSize / 2, y: ypos + smallBoxSize / 2 },
+                        tr: { x: xpos + bigBoxSize - smallBoxSize / 2, y: ypos + smallBoxSize / 2 },
+                        br: { x: xpos + bigBoxSize - smallBoxSize / 2, y: ypos + bigBoxSize - smallBoxSize / 2 },
+                        bl: { x: xpos + smallBoxSize / 2, y: ypos + bigBoxSize - smallBoxSize / 2 }
                     }
                 }
             }
@@ -1226,7 +1227,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         var y2 = parseFloat(coord.y2);
 
         var fromx, fromy, tox, toy;
-        fromx = x2 - (x2 - x1)/4;
+        fromx = x2 - (x2 - x1) / 4;
         fromy = y1 - 10;
         tox = fromx - 25;
         toy = fromy;
@@ -1239,7 +1240,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         var headlen = 10;
         var lineWidth = 2;
 
-        var angle = Math.atan2(toy-fromy,tox-fromx);
+        var angle = Math.atan2(toy - fromy, tox - fromx);
 
         ctx.beginPath();
         ctx.moveTo(fromx, fromy);
@@ -1251,14 +1252,14 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         //starting a new path from the head of the arrow to one of the sides of the point
         ctx.beginPath();
         ctx.moveTo(tox, toy);
-        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+        ctx.lineTo(tox - headlen * Math.cos(angle - Math.PI / 7), toy - headlen * Math.sin(angle - Math.PI / 7));
 
         //path from the side point of the arrow, to the other side point
-        ctx.lineTo(tox-headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle+Math.PI/7));
+        ctx.lineTo(tox - headlen * Math.cos(angle + Math.PI / 7), toy - headlen * Math.sin(angle + Math.PI / 7));
 
         //path from the side point back to the tip of the arrow, and then again to the opposite side point
         ctx.lineTo(tox, toy);
-        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+        ctx.lineTo(tox - headlen * Math.cos(angle - Math.PI / 7), toy - headlen * Math.sin(angle - Math.PI / 7));
 
         //draws the paths created above
         ctx.strokeStyle = "#000000";
@@ -1274,7 +1275,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         var y2 = parseFloat(coord.y2);
 
         var fromx, fromy, tox, toy;
-        fromx = x1 + (x2 - x1)/4;
+        fromx = x1 + (x2 - x1) / 4;
         fromy = y1 - 10;
         tox = fromx + 25;
         toy = fromy;
@@ -1287,7 +1288,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         var headlen = 10;
         var lineWidth = 2;
 
-        var angle = Math.atan2(toy-fromy,tox-fromx);
+        var angle = Math.atan2(toy - fromy, tox - fromx);
 
         ctx.beginPath();
         ctx.moveTo(fromx, fromy);
@@ -1299,14 +1300,14 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         //starting a new path from the head of the arrow to one of the sides of the point
         ctx.beginPath();
         ctx.moveTo(tox, toy);
-        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+        ctx.lineTo(tox - headlen * Math.cos(angle - Math.PI / 7), toy - headlen * Math.sin(angle - Math.PI / 7));
 
         //path from the side point of the arrow, to the other side point
-        ctx.lineTo(tox-headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle+Math.PI/7));
+        ctx.lineTo(tox - headlen * Math.cos(angle + Math.PI / 7), toy - headlen * Math.sin(angle + Math.PI / 7));
 
         //path from the side point back to the tip of the arrow, and then again to the opposite side point
         ctx.lineTo(tox, toy);
-        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+        ctx.lineTo(tox - headlen * Math.cos(angle - Math.PI / 7), toy - headlen * Math.sin(angle - Math.PI / 7));
 
         //draws the paths created above
         ctx.strokeStyle = "#000000";
@@ -1322,7 +1323,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         var y2 = parseFloat(coord.y2);
 
         var fromx, fromy, tox, toy;
-        fromx = x2 - (x2 - x1)/2;
+        fromx = x2 - (x2 - x1) / 2;
         fromy = y1 - 10;
         tox = fromx + 10;
         toy = fromy;
@@ -1335,24 +1336,24 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         ctx.lineWidth = lineWidth;
 
         ctx.beginPath();
-        ctx.arc(fromx, fromy, 5, 0.38*Math.PI, 1.5*Math.PI);
+        ctx.arc(fromx, fromy, 5, 0.38 * Math.PI, 1.5 * Math.PI);
         ctx.stroke();
 
         ctx.beginPath();
-        ctx.moveTo(fromx, fromy-5);
-        ctx.lineTo(tox, fromy-5);
+        ctx.moveTo(fromx, fromy - 5);
+        ctx.lineTo(tox, fromy - 5);
         ctx.stroke();
 
-        var angle = Math.atan2(toy-fromy,tox-fromx);
+        var angle = Math.atan2(toy - fromy, tox - fromx);
 
-        toy = toy-5;
-        tox = tox+5;
+        toy = toy - 5;
+        tox = tox + 5;
         ctx.beginPath();
         ctx.moveTo(tox, toy);
-        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
-        ctx.lineTo(tox-headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle+Math.PI/7));
+        ctx.lineTo(tox - headlen * Math.cos(angle - Math.PI / 7), toy - headlen * Math.sin(angle - Math.PI / 7));
+        ctx.lineTo(tox - headlen * Math.cos(angle + Math.PI / 7), toy - headlen * Math.sin(angle + Math.PI / 7));
         ctx.lineTo(tox, toy);
-        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+        ctx.lineTo(tox - headlen * Math.cos(angle - Math.PI / 7), toy - headlen * Math.sin(angle - Math.PI / 7));
         ctx.stroke();
         ctx.fill();
 
@@ -1380,7 +1381,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         var y2 = parseFloat(coord.y2);
 
         var fromx, fromy, tox, toy;
-        fromx = x1 + (x2 - x1)/4;
+        fromx = x1 + (x2 - x1) / 4;
         fromy = y1 - 10;
         tox = fromx + 10;
         toy = fromy;
@@ -1398,24 +1399,24 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         ctx.lineWidth = lineWidth;
 
         ctx.beginPath();
-        ctx.arc(tox, fromy, 5, 1.5*Math.PI, 0.5*Math.PI);
+        ctx.arc(tox, fromy, 5, 1.5 * Math.PI, 0.5 * Math.PI);
         ctx.stroke();
 
         ctx.beginPath();
-        ctx.moveTo(tox, fromy-5);
-        ctx.lineTo(fromx, fromy-5);
+        ctx.moveTo(tox, fromy - 5);
+        ctx.lineTo(fromx, fromy - 5);
         ctx.stroke();
 
-        var angle = Math.atan2(toy-fromy,tox-fromx);
+        var angle = Math.atan2(toy - fromy, tox - fromx);
 
-        toy = toy-5;
-        fromx = fromx-5;
+        toy = toy - 5;
+        fromx = fromx - 5;
         ctx.beginPath();
         ctx.moveTo(fromx, toy);
-        ctx.lineTo(fromx+headlen*Math.cos(angle+Math.PI/7),toy+headlen*Math.sin(angle+Math.PI/7));
-        ctx.lineTo(fromx+headlen*Math.cos(angle-Math.PI/7),toy+headlen*Math.sin(angle-Math.PI/7));
+        ctx.lineTo(fromx + headlen * Math.cos(angle + Math.PI / 7), toy + headlen * Math.sin(angle + Math.PI / 7));
+        ctx.lineTo(fromx + headlen * Math.cos(angle - Math.PI / 7), toy + headlen * Math.sin(angle - Math.PI / 7));
         ctx.lineTo(fromx, toy);
-        ctx.lineTo(fromx+headlen*Math.cos(angle+Math.PI/7),toy+headlen*Math.sin(angle-Math.PI/7));
+        ctx.lineTo(fromx + headlen * Math.cos(angle + Math.PI / 7), toy + headlen * Math.sin(angle - Math.PI / 7));
         ctx.stroke();
         ctx.fill();
     }
@@ -1427,7 +1428,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         var y2 = parseFloat(coord.y2);
 
         var fromx, fromy, tox, toy;
-        fromx = x2 - (x2 - x1)/4;
+        fromx = x2 - (x2 - x1) / 4;
         fromy = y2 + 10;
         tox = fromx - 25;
         toy = fromy;
@@ -1440,7 +1441,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         var headlen = 10;
         var lineWidth = 2;
 
-        var angle = Math.atan2(toy-fromy,tox-fromx);
+        var angle = Math.atan2(toy - fromy, tox - fromx);
 
         ctx.beginPath();
         ctx.moveTo(fromx, fromy);
@@ -1452,14 +1453,14 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         //starting a new path from the head of the arrow to one of the sides of the point
         ctx.beginPath();
         ctx.moveTo(tox, toy);
-        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+        ctx.lineTo(tox - headlen * Math.cos(angle - Math.PI / 7), toy - headlen * Math.sin(angle - Math.PI / 7));
 
         //path from the side point of the arrow, to the other side point
-        ctx.lineTo(tox-headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle+Math.PI/7));
+        ctx.lineTo(tox - headlen * Math.cos(angle + Math.PI / 7), toy - headlen * Math.sin(angle + Math.PI / 7));
 
         //path from the side point back to the tip of the arrow, and then again to the opposite side point
         ctx.lineTo(tox, toy);
-        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+        ctx.lineTo(tox - headlen * Math.cos(angle - Math.PI / 7), toy - headlen * Math.sin(angle - Math.PI / 7));
 
         //draws the paths created above
         ctx.strokeStyle = "#000000";
@@ -1476,7 +1477,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         var y2 = parseFloat(coord.y2);
 
         var fromx, fromy, tox, toy;
-        fromx = x1 + (x2 - x1)/4;
+        fromx = x1 + (x2 - x1) / 4;
         fromy = y2 + 10;
         tox = fromx + 25;
         toy = fromy;
@@ -1489,7 +1490,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         var headlen = 10;
         var lineWidth = 2;
 
-        var angle = Math.atan2(toy-fromy,tox-fromx);
+        var angle = Math.atan2(toy - fromy, tox - fromx);
 
         ctx.beginPath();
         ctx.moveTo(fromx, fromy);
@@ -1501,14 +1502,14 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         //starting a new path from the head of the arrow to one of the sides of the point
         ctx.beginPath();
         ctx.moveTo(tox, toy);
-        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+        ctx.lineTo(tox - headlen * Math.cos(angle - Math.PI / 7), toy - headlen * Math.sin(angle - Math.PI / 7));
 
         //path from the side point of the arrow, to the other side point
-        ctx.lineTo(tox-headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle+Math.PI/7));
+        ctx.lineTo(tox - headlen * Math.cos(angle + Math.PI / 7), toy - headlen * Math.sin(angle + Math.PI / 7));
 
         //path from the side point back to the tip of the arrow, and then again to the opposite side point
         ctx.lineTo(tox, toy);
-        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+        ctx.lineTo(tox - headlen * Math.cos(angle - Math.PI / 7), toy - headlen * Math.sin(angle - Math.PI / 7));
 
         //draws the paths created above
         ctx.strokeStyle = "#000000";
@@ -1525,7 +1526,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         var y2 = parseFloat(coord.y2);
 
         var fromx, fromy, tox, toy;
-        fromx = x2 - (x2 - x1)/2;
+        fromx = x2 - (x2 - x1) / 2;
         fromy = y2 + 10;
         tox = fromx + 10;
         toy = fromy + 5;
@@ -1538,7 +1539,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         ctx.lineWidth = lineWidth;
 
         ctx.beginPath();
-        ctx.arc(fromx, fromy, 5, 0.38*Math.PI, 1.5*Math.PI);
+        ctx.arc(fromx, fromy, 5, 0.38 * Math.PI, 1.5 * Math.PI);
         ctx.stroke();
 
         ctx.beginPath();
@@ -1546,16 +1547,16 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         ctx.lineTo(tox, toy);
         ctx.stroke();
 
-        var angle = Math.atan2(toy-fromy,tox);
+        var angle = Math.atan2(toy - fromy, tox);
 
         toy = toy;
         tox = tox + 5;
         ctx.beginPath();
         ctx.moveTo(tox, toy);
-        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
-        ctx.lineTo(tox-headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle+Math.PI/7));
+        ctx.lineTo(tox - headlen * Math.cos(angle - Math.PI / 7), toy - headlen * Math.sin(angle - Math.PI / 7));
+        ctx.lineTo(tox - headlen * Math.cos(angle + Math.PI / 7), toy - headlen * Math.sin(angle + Math.PI / 7));
         ctx.lineTo(tox, toy);
-        ctx.lineTo(tox-headlen*Math.cos(angle-Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+        ctx.lineTo(tox - headlen * Math.cos(angle - Math.PI / 7), toy - headlen * Math.sin(angle - Math.PI / 7));
         ctx.stroke();
         ctx.fill();
     }
@@ -1567,7 +1568,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         var y2 = parseFloat(coord.y2);
 
         var fromx, fromy, tox, toy;
-        fromx = x2 - (x2 - x1)/2;
+        fromx = x2 - (x2 - x1) / 2;
         fromy = y2 + 10;
         tox = fromx - 10;
         toy = fromy + 5;
@@ -1580,7 +1581,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         ctx.lineWidth = lineWidth;
 
         ctx.beginPath();
-        ctx.arc(fromx, fromy, 5, 1.5*Math.PI, 0.5*Math.PI);
+        ctx.arc(fromx, fromy, 5, 1.5 * Math.PI, 0.5 * Math.PI);
         ctx.stroke();
 
         ctx.beginPath();
@@ -1588,21 +1589,21 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         ctx.lineTo(fromx, toy);
         ctx.stroke();
 
-        var angle = Math.atan2(toy-fromy,tox);
+        var angle = Math.atan2(toy - fromy, tox);
 
         toy = toy;
         tox = tox - 5;
         ctx.beginPath();
         ctx.moveTo(tox, toy);
-        ctx.lineTo(tox+headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle+Math.PI/7));
-        ctx.lineTo(tox+headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle-Math.PI/7));
+        ctx.lineTo(tox + headlen * Math.cos(angle + Math.PI / 7), toy - headlen * Math.sin(angle + Math.PI / 7));
+        ctx.lineTo(tox + headlen * Math.cos(angle + Math.PI / 7), toy - headlen * Math.sin(angle - Math.PI / 7));
         ctx.lineTo(tox, toy);
-        ctx.lineTo(tox+headlen*Math.cos(angle+Math.PI/7),toy-headlen*Math.sin(angle+Math.PI/7));
+        ctx.lineTo(tox + headlen * Math.cos(angle + Math.PI / 7), toy - headlen * Math.sin(angle + Math.PI / 7));
         ctx.stroke();
         ctx.fill();
     }
 
-    Odontogram.prototype.redraw = function() {
+    Odontogram.prototype.redraw = function () {
         var canvas = this.canvas;
         var ctx = this.context;
 
@@ -1636,7 +1637,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         return this;
     };
 
-    Odontogram.prototype.setGeometry = function(geometry) {
+    Odontogram.prototype.setGeometry = function (geometry) {
         for (var keyCoord in geometry) {
             for (var i = 0; i < geometry[keyCoord].length; i++) {
                 geometry[keyCoord][i] = convertGeomFromObject(geometry[keyCoord][i]);
@@ -1648,7 +1649,54 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         this.redraw();
     }
 
-    Odontogram.prototype.getDataURL = function() {
+    const search = (key, value, obj) => {
+        for (let k in obj) {
+            if (obj[k][key] == value) {
+                return [k, obj[k]];
+            }
+        }
+        return null;
+    }
+
+    Odontogram.prototype.setGeometryByPos = function (data) {
+        let geometry = {};
+        for (d of data) {
+            if (!d.code || !d.pos) continue;
+            if (d.pos.includes('-')) {
+                [pos, sub] = d.pos.split('-');
+                const t = search('num', pos, this.teeth);
+                let s;
+                if (sub == 'L') s = t[1].left
+                else if (sub == 'R') s = t[1].right
+                else if (sub == 'B') s = t[1].bottom
+                else if (sub == 'T') s = t[1].top
+                else if (sub == 'M') s = t[1].middle
+
+                if (!geometry[t[0]]) geometry[t[0]] = []
+
+                geometry[t[0]].push({
+                    name: d.code,
+                    pos: d.pos,
+                    vertices: [s.bl, s.br, s.tr, s.tl]
+                })
+            } else {
+                const t = search('num', d.pos, this.teeth);
+                if (!geometry[t[0]]) geometry[t[0]] = []
+                geometry[t[0]].push({
+                    name: d.code,
+                    pos: d.pos,
+                    vertices: [
+                        { x: t[1].x1, y: t[1].y1 },
+                        { x: t[1].x2, y: t[1].y2 }
+                    ]
+                })
+            }
+        }
+        this.setGeometry(geometry);
+        return geometry;
+    }
+
+    Odontogram.prototype.getDataURL = function () {
         return this.canvas.toDataURL();
     }
 
@@ -1664,8 +1712,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
                     throw Error("can't reinitialize odontogram.");
                 }
 
-                initialize(this, arg1);
-                break;
+                return initialize(this, arg1);
             case 'setMode':
                 instance.active_geometry = null;
                 checkOdontogram(this, mode);
@@ -1685,7 +1732,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
                 break;
             // DLL
         }
-        
+
         return this;
     }
 
@@ -1710,7 +1757,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
             .on('mousemove', _on_mouse_move)
             .on('click', _on_mouse_click);
 
-        return $this;
+        return instance;
     }
 
     function setMode($this, mode) {
@@ -1824,6 +1871,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
                 newGeometry = geometry;
                 break;
         }
+        newGeometry.pos = geometry.pos;
 
         return newGeometry;
     }
@@ -1931,7 +1979,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
                 case 'left':
                 case 'right':
                     if (isPolyIntersect(teeth[key], { mouse: mouse })) {
-                        geoms.push(teeth[key]);
+                        geoms.push({ name: key, coord: teeth[key] });
                     }
                     break;
             }
@@ -1944,10 +1992,12 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         var vertices;
         for (var i = 0; i < geoms.length; i++) {
             vertices = [];
-            for (var key in geoms[i]) {
-                vertices.push(geoms[i][key]);
+            for (var key in geoms[i].coord) {
+                vertices.push(geoms[i].coord[key]);
             }
-            polygons.push(new Polygon(vertices, polygonOpt));
+            const pol = new Polygon(vertices, polygonOpt);
+            pol.name = geoms[i].name;
+            polygons.push(pol);
         }
 
         return polygons;
@@ -1955,7 +2005,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
 
     function isRectIntersect(rectA, rectB) {
         return rectA.x1 < rectB.x2 && rectA.x2 > rectB.x1 &&
-                rectA.y1 < rectB.y2 && rectA.y2 > rectB.y1;      
+            rectA.y1 < rectB.y2 && rectA.y2 > rectB.y1;
     }
 
     function isPolyIntersect(polyA, polyB) {
@@ -2210,7 +2260,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
 
 
     // Handlers
-    function _on_mouse_move (e) {
+    function _on_mouse_move(e) {
         var mouse = getMouse(e);
         var $this = $(e.target);
         var instance = $this.data('odontogram');
@@ -2245,24 +2295,24 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
                 case ODONTOGRAM_MODE_ARROW_BOTTOM_RIGHT:
                 case ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_LEFT:
                 case ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT:
-                    if (isRectIntersect(coord, { x1: mouse.x, y1: mouse.y, x2: mouse.x, y2: mouse.y})) {
+                    if (isRectIntersect(coord, { x1: mouse.x, y1: mouse.y, x2: mouse.x, y2: mouse.y })) {
                         hoverGeoms = [{
                             vertices: [
                                 { x: coord.x1, y: coord.y1 },
                                 { x: coord.x2, y: coord.y2 }
                             ]
                         }];
-                        
+
                         instance.hoverGeoms = instance.hoverGeoms.concat(hoverGeoms);
                     }
                     break;
                 case ODONTOGRAM_MODE_BRIDGE:
-                    if (isRectIntersect(coord, { x1: mouse.x, y1: mouse.y, x2: mouse.x, y2: mouse.y})) {
+                    if (isRectIntersect(coord, { x1: mouse.x, y1: mouse.y, x2: mouse.x, y2: mouse.y })) {
                         hoverGeoms = [
                             { x: coord.x1, y: coord.y1 },
                             { x: coord.x2, y: coord.y2 }
                         ];
-                        
+
                         if (instance.active_geometry) {
                             instance.hoverGeoms = [
                                 [instance.active_geometry.startVert, hoverGeoms]
@@ -2275,9 +2325,9 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
                     }
                     break;
                 default: // Setiap Bagian
-                    if (isRectIntersect(coord, { x1: mouse.x, y1: mouse.y, x2: mouse.x, y2: mouse.y})) {
+                    if (isRectIntersect(coord, { x1: mouse.x, y1: mouse.y, x2: mouse.x, y2: mouse.y })) {
                         hoverGeoms = getHoverShapeOnTeeth(mouse, teeth);
-                        
+
                         instance.hoverGeoms = instance.hoverGeoms.concat(hoverGeoms);
                     }
                     break;
@@ -2289,7 +2339,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
             $this.css('cursor', 'pointer');
             if (instance.mode == ODONTOGRAM_MODE_HAPUS) {
                 $this.css('cursor', 'move');
-            } 
+            }
         } else {
             $this.css('cursor', 'default');
         }
@@ -2297,7 +2347,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         instance.redraw();
     }
 
-    function _on_mouse_click (e) {
+    function _on_mouse_click(e) {
         var mouse = getMouse(e);
         var $this = $(e.target);
         var instance = $this.data('odontogram');
@@ -2334,17 +2384,18 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
                 case ODONTOGRAM_MODE_ARROW_BOTTOM_RIGHT:
                 case ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_LEFT:
                 case ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT:
-                    if (isRectIntersect(coord, { x1: mouse.x, y1: mouse.y, x2: mouse.x, y2: mouse.y})) {
+                    if (isRectIntersect(coord, { x1: mouse.x, y1: mouse.y, x2: mouse.x, y2: mouse.y })) {
                         tempGeoms[keyCoord] = [convertGeom({
                             vertices: [
                                 { x: coord.x1, y: coord.y1 },
                                 { x: coord.x2, y: coord.y2 }
-                            ]
+                            ],
+                            pos: teeth.num
                         }, instance.mode)];
                     }
                     break;
                 case ODONTOGRAM_MODE_BRIDGE:
-                    if (isRectIntersect(coord, { x1: mouse.x, y1: mouse.y, x2: mouse.x, y2: mouse.y})) {
+                    if (isRectIntersect(coord, { x1: mouse.x, y1: mouse.y, x2: mouse.x, y2: mouse.y })) {
                         tempGeoms[keyCoord] = [];
                         if (instance.active_geometry) {
                             instance.active_geometry = convertGeom([
@@ -2366,20 +2417,14 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
                                 null
                             ], instance.mode);
                         }
-
-                        // tempGeoms[keyCoord] = [convertGeom({
-                        //     vertices: [
-                        //         { x: coord.x1, y: coord.y1 },
-                        //         { x: coord.x2, y: coord.y2 }
-                        //     ]
-                        // }, instance.mode)];
                     }
                     break;
                 default: // Setiap Bagian
-                    if (isRectIntersect(coord, { x1: mouse.x, y1: mouse.y, x2: mouse.x, y2: mouse.y})) {
+                    if (isRectIntersect(coord, { x1: mouse.x, y1: mouse.y, x2: mouse.x, y2: mouse.y })) {
                         tempGeoms[keyCoord] = [];
                         temp = getHoverShapeOnTeeth(mouse, teeth);
                         for (var i = 0; i < temp.length; i++) {
+                            temp[i].pos = teeth.num + '-' + temp[i].name.charAt(0).toUpperCase();
                             tempGeoms[keyCoord].push(convertGeom(temp[i], instance.mode));
                         }
                     }
@@ -2396,7 +2441,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
             instance.geometry = joinShapeTeeth(instance.geometry, tempGeoms);
         }
 
-
+        $this.trigger('change', [instance.geometry]);
         instance.redraw();
     }
 
@@ -2405,4 +2450,4 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         height: "480px"
     }
 
-})( jQuery );
+})(jQuery);
