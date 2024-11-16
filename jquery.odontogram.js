@@ -1278,8 +1278,6 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
                 xpos = x * bigBoxSize + (pl) + x * gap_per + (sec * gap_bag);
                 ypos = y * bigBoxSize + pt + (pt * y);
 
-                // y = 5 sampai 11 harusnya middle nya tipis saja
-
                 // Big Box
                 ctx.beginPath();
                 ctx.lineWidth = "2";
