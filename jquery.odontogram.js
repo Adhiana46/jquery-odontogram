@@ -1067,6 +1067,176 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         return this;
     };
 
+    Odontogram.prototype._sideTeeth = function (ctx, numbers, bigBoxSize, smallBoxSize, xpos, ypos) {
+        // Small Box
+        ctx.beginPath();
+        ctx.lineWidth = "2";
+        ctx.strokeStyle = "#555";
+        ctx.rect(xpos + smallBoxSize / 2, ypos + smallBoxSize / 2, smallBoxSize, smallBoxSize);
+        ctx.stroke();
+
+        // Lines
+        //// Top Left
+        ctx.beginPath();
+        ctx.moveTo(xpos, ypos);
+        ctx.lineTo(xpos + smallBoxSize / 2, ypos + smallBoxSize / 2);
+        ctx.stroke();
+        //// Top Right
+        ctx.beginPath();
+        ctx.moveTo(xpos + bigBoxSize, ypos);
+        ctx.lineTo(xpos + bigBoxSize - smallBoxSize / 2, ypos + smallBoxSize / 2);
+        ctx.stroke();
+        //// Bottom Left
+        ctx.beginPath();
+        ctx.moveTo(xpos, ypos + bigBoxSize);
+        ctx.lineTo(xpos + smallBoxSize / 2, ypos + bigBoxSize - smallBoxSize / 2);
+        ctx.stroke();
+        //// Bottom Right
+        ctx.beginPath();
+        ctx.moveTo(xpos + bigBoxSize, ypos + bigBoxSize);
+        ctx.lineTo(xpos + bigBoxSize - smallBoxSize / 2, ypos + bigBoxSize - smallBoxSize / 2);
+        ctx.stroke();
+
+        // Numbers
+        var num = numbers.shift();
+        ctx.font = "12px Arial";
+        ctx.textBaseline = "bottom";
+        ctx.textAlign = "center";
+        ctx.fillText(num, xpos + bigBoxSize / 2, ypos + bigBoxSize * 1.4);
+
+        const x1 = xpos; const y1 = ypos;
+        const x2 = xpos + bigBoxSize; const y2 = ypos + bigBoxSize;
+        const cx = xpos + bigBoxSize / 2; const cy = ypos + bigBoxSize / 2;
+        const key = x1 + ':' + y1 + ';' + x2 + ':' + y2 + ';' + cx + ':' + cy;
+        this.teeth[key] = {
+            num: num,
+            bigBoxSize: bigBoxSize,
+            smallBoxSize: smallBoxSize,
+            x1: x1,
+            y1: y1,
+            x2: x2,
+            y2: y2,
+            cx: cx,
+            cy: cy,
+            // Coords shapes (top left, top right, bottom left, bottom right)
+            top: {
+                tl: { x: xpos, y: ypos },
+                tr: { x: xpos + bigBoxSize, y: ypos },
+                br: { x: xpos + bigBoxSize - smallBoxSize / 2, y: ypos + smallBoxSize / 2 },
+                bl: { x: xpos + smallBoxSize / 2, y: ypos + smallBoxSize / 2 }
+            },
+            right: {
+                tl: { x: xpos + bigBoxSize - smallBoxSize / 2, y: ypos + smallBoxSize / 2 },
+                tr: { x: xpos + bigBoxSize, y: ypos },
+                br: { x: xpos + bigBoxSize, y: ypos + bigBoxSize },
+                bl: { x: xpos + bigBoxSize - smallBoxSize / 2, y: ypos + bigBoxSize - smallBoxSize / 2 }
+            },
+            bottom: {
+                tl: { x: xpos + smallBoxSize / 2, y: ypos + bigBoxSize - smallBoxSize / 2 },
+                tr: { x: xpos + bigBoxSize - smallBoxSize / 2, y: ypos + bigBoxSize - smallBoxSize / 2 },
+                br: { x: xpos + bigBoxSize, y: ypos + bigBoxSize },
+                bl: { x: xpos, y: ypos + bigBoxSize }
+            },
+            left: {
+                tl: { x: xpos, y: ypos },
+                tr: { x: xpos + smallBoxSize / 2, y: ypos + smallBoxSize / 2 },
+                br: { x: xpos + smallBoxSize / 2, y: ypos + bigBoxSize - smallBoxSize / 2 },
+                bl: { x: xpos, y: ypos + bigBoxSize }
+            },
+            middle: {
+                tl: { x: xpos + smallBoxSize / 2, y: ypos + smallBoxSize / 2 },
+                tr: { x: xpos + bigBoxSize - smallBoxSize / 2, y: ypos + smallBoxSize / 2 },
+                br: { x: xpos + bigBoxSize - smallBoxSize / 2, y: ypos + bigBoxSize - smallBoxSize / 2 },
+                bl: { x: xpos + smallBoxSize / 2, y: ypos + bigBoxSize - smallBoxSize / 2 }
+            }
+        }
+    }
+
+    Odontogram.prototype._centerTeeth = function (ctx, numbers, bigBoxSize, smallBoxSize, xpos, ypos) {
+        // Small Box
+        ctx.beginPath();
+        ctx.lineWidth = "2";
+        ctx.strokeStyle = "#555";
+        ctx.rect(xpos + smallBoxSize / 2 + 3, ypos + smallBoxSize - 3, smallBoxSize - 6, 0);
+        ctx.stroke();
+
+        // Lines
+        //// Top Left
+        ctx.beginPath();
+        ctx.moveTo(xpos, ypos);
+        ctx.lineTo(xpos + smallBoxSize / 2 + 3, ypos + smallBoxSize - 3);
+        ctx.stroke();
+        //// Top Right
+        ctx.beginPath();
+        ctx.moveTo(xpos + bigBoxSize, ypos);
+        ctx.lineTo(xpos + bigBoxSize - smallBoxSize / 2 - 3, ypos + smallBoxSize - 3);
+        ctx.stroke();
+        //// Bottom Left
+        ctx.beginPath();
+        ctx.moveTo(xpos, ypos + bigBoxSize);
+        ctx.lineTo(xpos + smallBoxSize / 2 + 3, ypos + bigBoxSize - smallBoxSize - 3);
+        ctx.stroke();
+        //// Bottom Right
+        ctx.beginPath();
+        ctx.moveTo(xpos + bigBoxSize, ypos + bigBoxSize);
+        ctx.lineTo(xpos + bigBoxSize - smallBoxSize / 2 - 3, ypos + bigBoxSize - smallBoxSize - 3);
+        ctx.stroke();
+
+        // Numbers
+        var num = numbers.shift();
+        ctx.font = "12px Arial";
+        ctx.textBaseline = "bottom";
+        ctx.textAlign = "center";
+        ctx.fillText(num, xpos + bigBoxSize / 2, ypos + bigBoxSize * 1.4);
+
+        const x1 = xpos; const y1 = ypos;
+        const x2 = xpos + bigBoxSize; const y2 = ypos + bigBoxSize;
+        const cx = xpos + bigBoxSize - 3; const cy = ypos + bigBoxSize - 3;
+        const key = x1 + ':' + y1 + ';' + x2 + ':' + y2 + ';' + cx + ':' + cy;
+        this.teeth[key] = {
+            num: num,
+            bigBoxSize: bigBoxSize,
+            smallBoxSize: smallBoxSize,
+            x1: x1,
+            y1: y1,
+            x2: x2,
+            y2: y2,
+            cx: cx,
+            cy: cy,
+            // Coords shapes (top left, top right, bottom left, bottom right)
+            top: {
+                tl: { x: xpos + 1, y: ypos },
+                tr: { x: xpos + bigBoxSize, y: ypos },
+                br: { x: xpos + bigBoxSize - smallBoxSize / 2 - 3, y: ypos + smallBoxSize - 3 },
+                bl: { x: xpos + smallBoxSize / 2 + 3, y: ypos + smallBoxSize - 3 }
+            },
+            right: {
+                tl: { x: xpos + bigBoxSize - smallBoxSize / 2 - 2, y: ypos + smallBoxSize - 3 },
+                tr: { x: xpos + bigBoxSize, y: ypos },
+                br: { x: xpos + bigBoxSize, y: ypos + bigBoxSize },
+                bl: { x: xpos + bigBoxSize - smallBoxSize / 2 - 2, y: ypos + smallBoxSize - 3 }
+            },
+            bottom: {
+                tl: { x: xpos + smallBoxSize / 2 + 3, y: ypos + bigBoxSize - smallBoxSize - 3 },
+                tr: { x: xpos + bigBoxSize - smallBoxSize / 2 - 3, y: ypos + bigBoxSize - smallBoxSize - 3 },
+                br: { x: xpos + bigBoxSize - 1, y: ypos + bigBoxSize },
+                bl: { x: xpos + 1, y: ypos + bigBoxSize }
+            },
+            left: {
+                tl: { x: xpos, y: ypos },
+                tr: { x: xpos + smallBoxSize / 2 + 2, y: ypos + smallBoxSize - 3 },
+                br: { x: xpos + smallBoxSize / 2 + 2, y: ypos + smallBoxSize - 3 },
+                bl: { x: xpos, y: ypos + bigBoxSize }
+            },
+            middle: {
+                tl: { x: 0, y: 0 },
+                tr: { x: 0, y: 0 },
+                br: { x: 0, y: 0 },
+                bl: { x: 0, y: 0 }
+            }
+        }
+    }
+
     Odontogram.prototype._drawBackground = function () {
         var canvas = this.canvas;
         var ctx = this.context;
@@ -1096,9 +1266,6 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
 
         var xpos, ypos;
         var sec = 0;
-        var num;
-        var x1, x2, y1, y2, cx, cy;
-        var key;
         for (var y = 0; y < 4; y++) {
             sec = 0;
             for (var x = 0; x < 16; x++) {
@@ -1111,6 +1278,8 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
                 xpos = x * bigBoxSize + (pl) + x * gap_per + (sec * gap_bag);
                 ypos = y * bigBoxSize + pt + (pt * y);
 
+                // y = 5 sampai 11 harusnya middle nya tipis saja
+
                 // Big Box
                 ctx.beginPath();
                 ctx.lineWidth = "2";
@@ -1118,88 +1287,8 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
                 ctx.rect(xpos, ypos, bigBoxSize, bigBoxSize);
                 ctx.stroke();
 
-                // Small Box
-                ctx.beginPath();
-                ctx.lineWidth = "2";
-                ctx.strokeStyle = "#555";
-                ctx.rect(xpos + smallBoxSize / 2, ypos + smallBoxSize / 2, smallBoxSize, smallBoxSize);
-                ctx.stroke();
-
-                // Lines
-                //// Top Left
-                ctx.beginPath();
-                ctx.moveTo(xpos, ypos);
-                ctx.lineTo(xpos + smallBoxSize / 2, ypos + smallBoxSize / 2);
-                ctx.stroke();
-                //// Top Right
-                ctx.beginPath();
-                ctx.moveTo(xpos + bigBoxSize, ypos);
-                ctx.lineTo(xpos + bigBoxSize - smallBoxSize / 2, ypos + smallBoxSize / 2);
-                ctx.stroke();
-                //// Bottom Left
-                ctx.beginPath();
-                ctx.moveTo(xpos, ypos + bigBoxSize);
-                ctx.lineTo(xpos + smallBoxSize / 2, ypos + bigBoxSize - smallBoxSize / 2);
-                ctx.stroke();
-                //// Bottom Right
-                ctx.beginPath();
-                ctx.moveTo(xpos + bigBoxSize, ypos + bigBoxSize);
-                ctx.lineTo(xpos + bigBoxSize - smallBoxSize / 2, ypos + bigBoxSize - smallBoxSize / 2);
-                ctx.stroke();
-
-                // Numbers
-                num = numbers.shift();
-                ctx.font = "12px Arial";
-                ctx.textBaseline = "bottom";
-                ctx.textAlign = "center";
-                ctx.fillText(num, xpos + bigBoxSize / 2, ypos + bigBoxSize * 1.4);
-
-                x1 = xpos; y1 = ypos;
-                x2 = xpos + bigBoxSize; y2 = ypos + bigBoxSize;
-                cx = xpos + bigBoxSize / 2; cy = ypos + bigBoxSize / 2;
-                key = x1 + ':' + y1 + ';' + x2 + ':' + y2 + ';' + cx + ':' + cy;
-                this.teeth[key] = {
-                    num: num,
-                    bigBoxSize: bigBoxSize,
-                    smallBoxSize: smallBoxSize,
-                    x1: x1,
-                    y1: y1,
-                    x2: x2,
-                    y2: y2,
-                    cx: cx,
-                    cy: cy,
-                    // Coords shapes (top left, top right, bottom left, bottom right)
-                    top: {
-                        tl: { x: xpos, y: ypos },
-                        tr: { x: xpos + bigBoxSize, y: ypos },
-                        br: { x: xpos + bigBoxSize - smallBoxSize / 2, y: ypos + smallBoxSize / 2 },
-                        bl: { x: xpos + smallBoxSize / 2, y: ypos + smallBoxSize / 2 }
-                    },
-                    right: {
-                        tl: { x: xpos + bigBoxSize - smallBoxSize / 2, y: ypos + smallBoxSize / 2 },
-                        tr: { x: xpos + bigBoxSize, y: ypos },
-                        br: { x: xpos + bigBoxSize, y: ypos + bigBoxSize },
-                        bl: { x: xpos + bigBoxSize - smallBoxSize / 2, y: ypos + bigBoxSize - smallBoxSize / 2 }
-                    },
-                    bottom: {
-                        tl: { x: xpos + smallBoxSize / 2, y: ypos + bigBoxSize - smallBoxSize / 2 },
-                        tr: { x: xpos + bigBoxSize - smallBoxSize / 2, y: ypos + bigBoxSize - smallBoxSize / 2 },
-                        br: { x: xpos + bigBoxSize, y: ypos + bigBoxSize },
-                        bl: { x: xpos, y: ypos + bigBoxSize }
-                    },
-                    left: {
-                        tl: { x: xpos, y: ypos },
-                        tr: { x: xpos + smallBoxSize / 2, y: ypos + smallBoxSize / 2 },
-                        br: { x: xpos + smallBoxSize / 2, y: ypos + bigBoxSize - smallBoxSize / 2 },
-                        bl: { x: xpos, y: ypos + bigBoxSize }
-                    },
-                    middle: {
-                        tl: { x: xpos + smallBoxSize / 2, y: ypos + smallBoxSize / 2 },
-                        tr: { x: xpos + bigBoxSize - smallBoxSize / 2, y: ypos + smallBoxSize / 2 },
-                        br: { x: xpos + bigBoxSize - smallBoxSize / 2, y: ypos + bigBoxSize - smallBoxSize / 2 },
-                        bl: { x: xpos + smallBoxSize / 2, y: ypos + bigBoxSize - smallBoxSize / 2 }
-                    }
-                }
+                if (x >= 5 && x <= 11) this._centerTeeth(ctx, numbers, bigBoxSize, smallBoxSize, xpos, ypos);
+                else this._sideTeeth(ctx, numbers, bigBoxSize, smallBoxSize, xpos, ypos);
             }
         }
 
@@ -1649,7 +1738,8 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         this.redraw();
     }
 
-    const search = (key, value, obj) => {
+    Odontogram.prototype.search = function (key, value) {
+        const obj = this.teeth
         for (let k in obj) {
             if (obj[k][key] == value) {
                 return [k, obj[k]];
@@ -1664,13 +1754,15 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
             if (!d.code || !d.pos) continue;
             if (d.pos.includes('-')) {
                 [pos, sub] = d.pos.split('-');
-                const t = search('num', pos, this.teeth);
+                const t = this.search('num', pos);
                 let s;
                 if (sub == 'L') s = t[1].left
                 else if (sub == 'R') s = t[1].right
                 else if (sub == 'B') s = t[1].bottom
                 else if (sub == 'T') s = t[1].top
                 else if (sub == 'M') s = t[1].middle
+
+                if (['1', '2', '3'].some(a => pos.endsWith(a)) && sub == 'M') continue
 
                 if (!geometry[t[0]]) geometry[t[0]] = []
 
@@ -1680,7 +1772,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
                     vertices: [s.bl, s.br, s.tr, s.tl]
                 })
             } else {
-                const t = search('num', d.pos, this.teeth);
+                const t = this.search('num', d.pos);
                 if (!geometry[t[0]]) geometry[t[0]] = []
                 geometry[t[0]].push({
                     name: d.code,
@@ -1725,10 +1817,13 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
             case 'getDataURL':
                 checkOdontogram(this, mode);
                 return instance.getDataURL();
-                break;
             case 'setGeometry':
                 checkOdontogram(this, mode);
                 instance.setGeometry(arg1);
+                break;
+            case 'setGeometryByPos':
+                checkOdontogram(this, mode);
+                instance.setGeometryByPos(arg1);
                 break;
             // DLL
         }
@@ -1978,7 +2073,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
                 case 'bottom':
                 case 'left':
                 case 'right':
-                    if (isPolyIntersect(teeth[key], { mouse: mouse })) {
+                    if (isPolyIntersect(teeth[key], mouse)) {
                         geoms.push({ name: key, coord: teeth[key] });
                     }
                     break;
@@ -2008,37 +2103,26 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
             rectA.y1 < rectB.y2 && rectA.y2 > rectB.y1;
     }
 
-    function isPolyIntersect(polyA, polyB) {
-        var polyAVertices = getPolyVertices(polyA);
-        var polyBVertices = getPolyVertices(polyB);
+    function isPolyIntersect(polygon, point) {
+        let { x, y } = point; // Koordinat titik
+        let vertices = Object.values(polygon); // Array titik poligon
+        let intersectCount = 0; // Jumlah interseksi sinar dengan sisi poligon
 
-        // Sementara Menggunakan Rectangle Collision
-        if (polyAVertices.length == 4 && polyBVertices.length == 1) {
-            var rectA = {
-                x1: polyAVertices[0].x,
-                x2: polyAVertices[1].x,
-                y1: polyAVertices[0].y,
-                y2: polyAVertices[2].y
-            };
-            var rectB = {
-                x1: polyBVertices[0].x,
-                x2: polyBVertices[0].x,
-                y1: polyBVertices[0].y,
-                y2: polyBVertices[0].y
+        for (let i = 0; i < vertices.length; i++) {
+            let v1 = vertices[i];
+            let v2 = vertices[(i + 1) % vertices.length];
+
+            // Cek apakah garis dari y=mouseY melintasi sisi v1->v2
+            if ((v1.y > y) !== (v2.y > y)) {
+                let intersectionX = v1.x + ((y - v1.y) * (v2.x - v1.x)) / (v2.y - v1.y);
+                if (x < intersectionX) {
+                    intersectCount++;
+                }
             }
-
-            return isRectIntersect(rectA, rectB);
         }
 
-        return true;
-    }
-
-    function getPolyVertices(poly) {
-        var vertices = [];
-        for (var key in poly) {
-            vertices.push(poly[key]);
-        }
-        return vertices;
+        // Jika jumlah interseksi ganjil, maka titik berada di dalam poligon
+        return intersectCount % 2 !== 0;
     }
 
     function parseKeyCoord(key) {
