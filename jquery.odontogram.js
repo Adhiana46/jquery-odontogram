@@ -1713,7 +1713,7 @@ var ODONTOGRAM_MODE_ARROW_BOTTOM_TURN_RIGHT = 26; // BOTTOM-TURN-RIGHT ARROW
         for (var keyCoord in this.geometry) {
             geoms = this.geometry[keyCoord];
             for (var x in geoms) {
-                geoms[x].render(ctx);
+                if (geoms[x].render) geoms[x].render(ctx);
             }
         }
 
