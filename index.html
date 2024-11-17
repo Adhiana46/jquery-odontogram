@@ -49,17 +49,11 @@
 
 
     <script type="text/javascript">
-        var odontogram = $("#odontogram").odontogram('init', {
+        $("#odontogram").odontogram('init', {
             width: "900px",
             height: "420px"
         });
-        // let data = odontogram.setGeometryByPos([
-        //     { code: 'AMF', pos: '18-R' },
-        //     { code: 'AMF', pos: '18-L' },
-        //     { code: 'CARIES', pos: '83-M' },
-        //     { code: 'POC', pos: '84' },
-        // ]);
-        $("#odontogram").data('odontogram').setGeometryByPos([
+        $("#odontogram").odontogram('setGeometryByPos', [
             { code: 'AMF', pos: '18-R' },
             { code: 'AMF', pos: '18-L' },
             { code: 'CARIES', pos: '83-M' },
